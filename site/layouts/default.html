@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="<%= language_code_of(@item) %>">
     <head>
         <meta charset="UTF-8">
         <meta name="generator" content="nanoc <%= Nanoc::VERSION %> (using HTML Tidy)">
@@ -13,11 +13,31 @@
                 <object type="image/svg+xml" data="<%= @items['/img/envelope/'].path %>"></object>
             </div>
             <ol id="nav">
-                <% ['/', '/about/'].each do |item_name| %>
-                <li<% if @items[item_name].path == @item.path %> class="active"<% end %>>
-                    <a href="<%= @items[item_name].path %>">
-                        <%= @items[item_name][:title] %>
+                <%
+                    ['home', 'about'].each do |id|
+                        an_item = item_for_id(id, @item)
+                %>
+                <li<% if an_item.path == @item.path %> class="active"<% end %>>
+                    <a href="<%= an_item.path %>"><%= an_item[:title] %></a>
+                </li>
+                <%
+                    end
+                %>
+            </ol>
+            <ol id="lang-select">
+                <% translations_of(@item).each do |t| %>
+                <li<% if @item == t %> class="active"<% end %>>
+                <% if @item == t %>
+                    <span lang="<%= language_code_of(t) %>">
+                        <%= language_code_of(t).upcase %>
+                    </span>
+                <% else %>
+                    <a href="<%= t.path %>"
+                            lang="<%= language_code_of(t) %>"
+                            hreflang="<%= language_code_of(t) %>">
+                        <%= language_code_of(t).upcase %>
                     </a>
+                <% end %>
                 </li>
                 <% end %>
             </ol>

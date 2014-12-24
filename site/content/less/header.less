@@ -20,13 +20,18 @@
     }
 }
 
+#lang-select {
+    float: right;
+}
+
+#lang-select,
 #nav {
     display: inline-block;
     vertical-align: middle;
     margin: 0;
     padding: 0;
 
-    li {
+    & > li {
         display: inline-block;
         margin: 0;
         padding: 0;
@@ -35,13 +40,15 @@
         &.active {
             border-bottom: @menu-border solid @white;
 
-            a {
+            & > a,
+            & > span {
                 padding-bottom: (@menu-padding-v - @menu-border);
                 .text-color-inverted-main();
             }
         }
 
-        a {
+        & > a,
+        & > span {
             display: block;
             margin: 0;
             padding: @menu-padding-v @menu-padding-h;

@@ -51,7 +51,11 @@ end
 #
 
 route '/img/*/' do
-    item.identifier.chop + '.svg'
+    if item[:extension] == 'ipe'
+        item.identifier.chop + '.svg'
+    else
+        item.identifier.chop + '.' + item[:extension]
+    end
 end
 
 route '/less/*/' do
@@ -60,6 +64,12 @@ route '/less/*/' do
     else
         nil
     end
+end
+
+route '/items/*/' do
+    splitId = item.identifier.chop.split('/')
+    joinId = (splitId[2] == default_language ? splitId[3..-1] : splitId[2..-1]).join('/')
+    (joinId.length > 0 ? '/' : '') + joinId + '/index.html'
 end
 
 route '*' do
