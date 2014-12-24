@@ -1,27 +1,23 @@
 <!DOCTYPE HTML>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="generator" content="nanoc <%= Nanoc::VERSION %> (using HTML Tidy)">
-    <title>A Brand New nanoc Site - <%= @item[:title] %></title>
-    <link rel="stylesheet" href="<%= @items['/less/denvelop/'].path %>">
-  </head>
-  <body>
-    <div id="main">
-      <%= yield %>
-    </div>
-    <div id="sidebar">
-      <h2>Documentation</h2>
-      <ul>
-        <li><a href="http://nanoc.ws/docs/">Documentation</a></li>
-        <li><a href="http://nanoc.ws/docs/tutorial/">Getting Started</a></li>
-      </ul>
-      <h2>Community</h2>
-      <ul>
-        <li><a href="http://groups.google.com/group/nanoc/">Discussion Group</a></li>
-        <li><a href="irc://chat.freenode.net/#nanoc">IRC Channel</a></li>
-        <li><a href="http://github.com/nanoc/nanoc/wiki/">Wiki</a></li>
-      </ul>
-    </div>
-  </body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="nanoc <%= Nanoc::VERSION %> (using HTML Tidy)">
+        <title>Denvelop - <%= @item[:title] %></title>
+        <link rel="stylesheet" href="<%= @items['/less/denvelop/'].path %>">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <object type="image/svg+xml" data="<%= @items['/img/envelope/'].path %>"></object>
+            </div>
+            <ol id="nav">
+                <li>Home</li>
+                <li>About</li>
+            </ol>
+        </div>
+        <div id="content">
+            <%= yield %>
+        </div>
+    </body>
 </html>

@@ -1,5 +1,6 @@
 /site/output/
 /site/tmp/
+/site/crash.log
 
 /out/**
 !/out/**/.gitkeep

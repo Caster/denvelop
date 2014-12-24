@@ -13,10 +13,22 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
+#
+# ---- COMPILE RULES -----------------------------------------------------------
+#
+
+compile '/img/*/' do
+    if item[:extension] == 'ipe'
+        filter :ipe
+    end
+end
+
 compile '/less/*/' do
     if item.identifier.chop.split('/').last == 'denvelop'
         filter :less
-        filter :yui_compressor, :type => :css
+        if item[:yuiCompress]
+            filter :yui_compressor, :type => :css
+        end
     else
         nil
     end
@@ -34,6 +46,14 @@ compile '*' do
     end
 end
 
+#
+# ---- ROUTING RULES -----------------------------------------------------------
+#
+
+route '/img/*/' do
+    item.identifier.chop + '.svg'
+end
+
 route '/less/*/' do
     if item.identifier.chop.split('/').last == 'denvelop'
         item.identifier.chop.gsub('less', 'css') + '.css'
@@ -46,5 +66,9 @@ route '*' do
     # Write item with identifier /foo/ to /foo/index.html
     item.identifier + 'index.html'
 end
+
+#
+# ---- LAYOUT RULES ------------------------------------------------------------
+#
 
 layout '*', :erb

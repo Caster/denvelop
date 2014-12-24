@@ -32,4 +32,3 @@ class TidyFilter < Nanoc::Filter
         end
     end
 end
-

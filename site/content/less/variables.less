@@ -1,0 +1,26 @@
+//
+// == Color definitions
+//
+@black: #000;
+@white: #FFF;
+
+//
+// == Font definitions
+//
+@font-size: 14px;
+@line-height: (20 / 14);
+@line-height-px: floor((@font-size * @line-height));
+
+//
+// == Responsive breakpoints
+//
+// breakpoints taken from Bootstrap (https://github.com/twbs/bootstrap/blob/master/less/variables.less)
+@screen-xs-min:  480px;
+@screen-sm-min:  768px;
+@screen-md-min:  992px;
+@screen-lg-min: 1200px;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);

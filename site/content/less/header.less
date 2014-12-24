@@ -1,0 +1,34 @@
+@menu-padding-h: 24px;
+@menu-padding-v: 18px;
+
+#logo {
+    display: inline-block;
+    vertical-align: middle;
+    height: (@line-height-px + 2 * @menu-padding-v);
+    margin: 0;
+    padding: 0;
+
+    & > * {
+        height: (@line-height-px + @menu-padding-v);
+        margin: (@menu-padding-v / 2);
+        padding: 0;
+    }
+}
+
+#nav {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    .font-size(1.2);
+
+    li {
+        display: inline-block;
+        padding: @menu-padding-v @menu-padding-h;
+        list-style-type: none;
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    
+}
