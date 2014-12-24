@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="generator" content="nanoc <%= Nanoc::VERSION %> (using HTML Tidy)">
         <title>Denvelop - <%= @item[:title] %></title>
-        <link rel="stylesheet" href="<%= @items['/less/denvelop/'].path %>">
+        <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop/'].path %>">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
     </head>
     <body>
         <div id="header">
@@ -12,8 +13,13 @@
                 <object type="image/svg+xml" data="<%= @items['/img/envelope/'].path %>"></object>
             </div>
             <ol id="nav">
-                <li>Home</li>
-                <li>About</li>
+                <% ['/', '/about/'].each do |item_name| %>
+                <li<% if @items[item_name].path == @item.path %> class="active"<% end %>>
+                    <a href="<%= @items[item_name].path %>">
+                        <%= @items[item_name][:title] %>
+                    </a>
+                </li>
+                <% end %>
             </ol>
         </div>
         <div id="content">

@@ -4,12 +4,25 @@
 @black: #000;
 @white: #FFF;
 
+// colors taken from http://www.google.com/design/spec/style/color.html#color-color-palette
+// also using the proposed main color with tint 500, darker tint 700 variant and accent color
+@color-main: #3F51B5;      // indigo 500
+@color-main-dark: #303F9F; // indigo 700
+@color-accent: #CDDC39;    // lime 500
+
 //
 // == Font definitions
 //
 @font-size: 14px;
 @line-height: (20 / 14);
 @line-height-px: floor((@font-size * @line-height));
+
+//
+// == Distance definitions (for spacing, padding, margin and such)
+//
+@spacing-sm:  5px;
+@spacing-md: 15px;
+@spacing-lg: 24px;
 
 //
 // == Responsive breakpoints

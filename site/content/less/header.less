@@ -1,5 +1,10 @@
-@menu-padding-h: 24px;
-@menu-padding-v: 18px;
+@menu-border: 2px;
+@menu-padding-h: @spacing-md;
+@menu-padding-v: @spacing-md;
+
+#header {
+    background: @color-main-dark;
+}
 
 #logo {
     display: inline-block;
@@ -10,7 +15,7 @@
 
     & > * {
         height: (@line-height-px + @menu-padding-v);
-        margin: (@menu-padding-v / 2);
+        margin: (@menu-padding-v / 2) @spacing-md;
         padding: 0;
     }
 }
@@ -26,9 +31,21 @@
         display: inline-block;
         padding: @menu-padding-v @menu-padding-h;
         list-style-type: none;
-    }
-}
 
-@media (max-width: @screen-xs-max) {
-    
+        &.active {
+            border-bottom: @menu-border solid @white;
+            padding-bottom: (@menu-padding-v - @menu-border);
+
+            a {
+                .text-color-inverted-main();
+            }
+        }
+
+        a {
+            .text-color-inverted-secondary();
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+    }
 }

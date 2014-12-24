@@ -1,4 +1,39 @@
+.font-color(@r, @g, @b, @a: 1.0) {
+    color: rgb(@r, @g, @b);
+    color: rgba(@r, @g, @b, @a);
+}
+
 .font-size(@size: 1.0) {
     font-size: @size em;
     font-size: @size rem;
+}
+
+// alpha values for text taken from
+// http://www.google.com/design/spec/style/color.html#color-ui-color-application
+.text-color-main() {
+    .font-color(0, 0, 0, 0.87);
+}
+
+.text-color-secondary() {
+    .font-color(0, 0, 0, 0.54);
+}
+
+.text-color-disabled() {
+    .font-color(0, 0, 0, 0.26);
+}
+
+.text-color-inverted-main() {
+    .font-color(255, 255, 255, 1.0);
+}
+
+.text-color-inverted-secondary() {
+    .font-color(255, 255, 255, 0.7);
+}
+
+.text-color-inverted-disabled() {
+    .font-color(255, 255, 255, 0.3);
+}
+
+.shadow() {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }

@@ -14,12 +14,38 @@ yuiCompress: !!bool false
 @import "normalize.less";
 
 html {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-size: @font-size;
     line-height: @line-height;
 }
 
 body {
-    background: @white;
+    background: @color-main;
 }
 
 @import "header.less";
+
+// TODO: make more generic and such
+#content {
+    margin: @spacing-lg;
+    padding: @spacing-md;
+    .text-color-main();
+    background: @white;
+    .shadow();
+
+    h1 {
+        line-height: 1.1;
+    }
+
+    h1, p, ul {
+        margin: @spacing-md 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
