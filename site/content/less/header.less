@@ -14,8 +14,8 @@
     padding: 0;
 
     & > * {
-        height: (@line-height-px + @menu-padding-v);
-        margin: (@menu-padding-v / 2) @spacing-md;
+        height: @line-height-px;
+        margin: @menu-padding-v @menu-padding-h;
         padding: 0;
     }
 }
@@ -25,23 +25,26 @@
     vertical-align: middle;
     margin: 0;
     padding: 0;
-    .font-size(1.2);
 
     li {
         display: inline-block;
-        padding: @menu-padding-v @menu-padding-h;
+        margin: 0;
+        padding: 0;
         list-style-type: none;
 
         &.active {
             border-bottom: @menu-border solid @white;
-            padding-bottom: (@menu-padding-v - @menu-border);
 
             a {
+                padding-bottom: (@menu-padding-v - @menu-border);
                 .text-color-inverted-main();
             }
         }
 
         a {
+            display: block;
+            margin: 0;
+            padding: @menu-padding-v @menu-padding-h;
             .text-color-inverted-secondary();
             font-weight: bold;
             text-decoration: none;
