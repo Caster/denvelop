@@ -16,11 +16,17 @@
                 <%
                     ['home', 'about'].each do |id|
                         an_item = item_for_id(id, @item)
+                        if an_item.path == @item.path
                 %>
-                <li<% if an_item.path == @item.path %> class="active"<% end %>>
+                <li class="active">
+                    <span href="<%= an_item.path %>"><%= an_item[:title] %></span>
+                </li>
+                <%      else %>
+                <li>
                     <a href="<%= an_item.path %>"><%= an_item[:title] %></a>
                 </li>
                 <%
+                        end
                     end
                 %>
             </ol>
