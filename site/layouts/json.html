@@ -1,0 +1,13 @@
+<%
+
+require 'json'
+
+page = {
+    :title => @item[:title_full],
+    :url => @item[:url],
+    :header => render('header'),
+    :html => yield
+}
+
+%>
+<%= JSON.generate(page) %>

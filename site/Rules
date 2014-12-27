@@ -14,12 +14,46 @@
 #   because “*” matches zero or more characters.
 
 #
+# ---- PREPROCESS RULES --------------------------------------------------------
+#
+
+preprocess do
+    items.select{ |item| item[:title] != nil }.
+        each{ |item|
+            item[:title_full] = 'Denvelop - ' + item[:title]
+            splitId = item.identifier.chop.split('/')
+            joinId = (splitId[2] == default_language ?
+                      splitId[3..-1] : splitId[2..-1]).join('/')
+            item[:url] = (joinId.length > 0 ? '/' : '') + joinId + '/'
+        }
+end
+
+#
 # ---- COMPILE RULES -----------------------------------------------------------
 #
 
 compile '/img/*/' do
     if item[:extension] == 'ipe'
         filter :ipe
+    end
+end
+
+compile '/items/*/' do
+    filter :erb
+    layout 'default'
+    filter :tidy
+end
+
+compile '/items/*/', :rep => :json do
+    filter :erb
+    layout 'json'
+end
+
+compile '/js/*/' do
+    if item[:yuiCompress]
+        filter :yui_compressor, :type => :js
+    else
+        nil
     end
 end
 
@@ -31,18 +65,6 @@ compile '/less/*/' do
         end
     else
         nil
-    end
-end
-
-compile '*' do
-    if item.binary?
-        nil
-    else
-        filter :erb
-        layout 'default'
-        if item[:title]
-            filter :tidy
-        end
     end
 end
 
@@ -58,23 +80,24 @@ route '/img/*/' do
     end
 end
 
+route '/items/*/' do
+    item[:url] + 'index.html'
+end
+
+route '/items/*/', :rep => :json do
+    item[:url] + 'page.json'
+end
+
+route '/js/*/' do
+    item.identifier.chop + '.js'
+end
+
 route '/less/*/' do
     if item.identifier.chop.split('/').last == 'denvelop'
         item.identifier.chop.gsub('less', 'css') + '.css'
     else
         nil
     end
-end
-
-route '/items/*/' do
-    splitId = item.identifier.chop.split('/')
-    joinId = (splitId[2] == default_language ? splitId[3..-1] : splitId[2..-1]).join('/')
-    (joinId.length > 0 ? '/' : '') + joinId + '/index.html'
-end
-
-route '*' do
-    # Write item with identifier /foo/ to /foo/index.html
-    item.identifier + 'index.html'
 end
 
 #

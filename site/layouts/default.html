@@ -3,53 +3,22 @@
     <head>
         <meta charset="UTF-8">
         <meta name="generator" content="nanoc <%= Nanoc::VERSION %> (using HTML Tidy)">
-        <title>Denvelop - <%= @item[:title] %></title>
+
+        <title><%= @item[:title_full] %></title>
+
         <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop/'].path %>">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
     </head>
     <body>
         <div id="header">
-            <div id="logo">
-                <object type="image/svg+xml" data="<%= @items['/img/envelope/'].path %>"></object>
-            </div>
-            <ol id="nav">
-                <%
-                    ['home', 'about'].each do |id|
-                        an_item = item_for_id(id, @item)
-                        if an_item.path == @item.path
-                %>
-                <li class="active">
-                    <span href="<%= an_item.path %>"><%= an_item[:title] %></span>
-                </li>
-                <%      else %>
-                <li>
-                    <a href="<%= an_item.path %>"><%= an_item[:title] %></a>
-                </li>
-                <%
-                        end
-                    end
-                %>
-            </ol>
-            <ol id="lang-select">
-                <% translations_of(@item).each do |t| %>
-                <li<% if @item == t %> class="active"<% end %>>
-                <% if @item == t %>
-                    <span lang="<%= language_code_of(t) %>">
-                        <%= language_code_of(t).upcase %>
-                    </span>
-                <% else %>
-                    <a href="<%= t.path %>"
-                            lang="<%= language_code_of(t) %>"
-                            hreflang="<%= language_code_of(t) %>">
-                        <%= language_code_of(t).upcase %>
-                    </a>
-                <% end %>
-                </li>
-                <% end %>
-            </ol>
+            <%= render 'header' %>
         </div>
         <div id="content">
             <%= yield %>
         </div>
+
+        <!-- load scripts at bottom of page for faster page load -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="<%= @items['/js/navigation/'].path %>"></script>
     </body>
 </html>
