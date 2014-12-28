@@ -24,17 +24,21 @@ yuiCompress: !!bool false
         gearObj = null,
         gearRotating = false,
         rotateSomewhat = function() {
-            gear.stop().animate({'transform': 'r45,80,96'}, 1000, function() {
-                if (gearRotating) {
-                    // reset transformation and repeat it (so it looks infinite)
-                    gear.attr({'transform': 'rotate(0 80 96)'});
-                    rotateSomewhat();
-                } else {
-                    // stop, but keep it spinning while it goes down
-                    gear.stop().animate({'transform': 'r45,80,96'}, 1000);
-                    gearObj.stop().animate({'top': 5}, 150);
-                }
-            });
+            gear.stop()
+                .attr({'transform': 'rotate(0 80 96)'})
+                .animate({'transform': 'r45,80,96'}, 1000, function() {
+                    if (gearRotating) {
+                        // reset transformation and repeat it (so it looks infinite)
+                        gear.attr({'transform': 'rotate(0 80 96)'});
+                        rotateSomewhat();
+                    } else {
+                        // stop, but keep it spinning while it goes down
+                        gear.stop()
+                            .attr({'transform': 'rotate(0 80 96)'})
+                            .animate({'transform': 'r45,80,96'}, 1000);
+                        gearObj.stop().animate({'top': '20%'}, 150);
+                    }
+                });
         },
         /**
          * Function that splits the envelope SVG in a foreground and background,
@@ -71,7 +75,7 @@ yuiCompress: !!bool false
         // make gear icon globally available for easy access
         gearObj = $('#loading-gear');
         gear = Snap(gearObj.get(0)).select('g');
-        gearObj.css({'display': 'block', 'top': 5});
+        gearObj.css({'display': 'block', 'top': '20%'});
         // split the envelope icon in parts, so that we can move icons in and
         // out of the envelope easily and also add a margin element that covers
         // the gear when it moves out of the envelope (and other icons too)
