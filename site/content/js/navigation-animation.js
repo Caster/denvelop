@@ -8,17 +8,31 @@ yuiCompress: !!bool false
          * completed ('denvelop-navigated' event). This will animate some icons.
          */
     var animate = function(event, prevPage, newPage) {
-            // TODO
+            // stop spinning the cog-wheel and hide it
             gearRotating = false;
+            // show the icon of the new page
+            if (prevPage.id === newPage.id) {
+                var icon = $('#nav-icon-' + newPage.id);
+                if (icon.is(':animated')) {
+                    icon.data('stop-hiding', true);
+                } else {
+                    setIconVisible(newPage.id, true);
+                }
+            } else {
+                setIconVisible(newPage.id, true);
+            }
         },
         /**
          * jQuery event handler that should be triggered when navigating starts
          * ('denvelop-navigating' event). This will show a spinning cog-wheel.
          */
-        animateLoading = function(event) {
+        animateLoading = function(event, page) {
+            // start spinning the cog-wheel and show it
             gearRotating = true;
             rotateSomewhat();
             gearObj.stop().animate({'top': 0}, 150);
+            // hide the icon of the current page
+            setIconVisible(page.id, false);
         },
         gear = null,
         gearObj = null,
@@ -39,6 +53,37 @@ yuiCompress: !!bool false
                         gearObj.stop().animate({'top': '20%'}, 150);
                     }
                 });
+        },
+        /**
+         * Show or hide a navigation icon.
+         */
+        setIconVisible = function(id, visible) {
+            $('#nav-icon-' + id).stop().animate({
+                'top': (visible ? '-50%' : '-100%'),
+                'left': (visible ? '-8%' : '8%')
+            }, function() {
+                var icon = $(this);
+                if (icon.data('stop-hiding') && !visible) {
+                    icon.removeData('stop-hiding');
+                    visible = true;
+                }
+                icon.css('z-index', (visible ? 7 : 2));
+                if (!visible) {
+                    icon.delay(200);
+                }
+                icon.animate({
+                    'top': (visible ? '15%' : '28%'),
+                    'left': (visible ? '15%' : '0%')
+                }, function() {
+                    icon.css('z-index', '');
+                    icon.toggleClass('active', visible);
+                    // maybe, the opposite needs to happen now
+                    if (icon.data('stop-hiding') && !visible) {
+                        icon.removeData('stop-hiding');
+                        setIconVisible(id, true);
+                    }
+                });
+            });
         },
         /**
          * Function that splits the envelope SVG in a foreground and background,
@@ -65,7 +110,7 @@ yuiCompress: !!bool false
                 'right': 0,
                 'bottom': 0,
                 'left': 0,
-                'z-index': 3,
+                'z-index': 4,
                 'background': $('#header').css('background-color')
             });
             $('#logo').append(marginEl);
@@ -80,6 +125,8 @@ yuiCompress: !!bool false
         // out of the envelope easily and also add a margin element that covers
         // the gear when it moves out of the envelope (and other icons too)
         splitEnvelope();
+        // show navigation icons
+        $('.nav-icon').css('display', 'block');
         // bind to the custom event that is fired as soon as a navigation link
         // is clicked and intercepted, but the page must still be loaded
         $(window).on('denvelop-navigating', animateLoading);

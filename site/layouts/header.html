@@ -5,9 +5,10 @@
         @items.select do |i|
             i.identifier.chop.start_with?('/img/icon-')
         end.each do |i|
-            active = (@item[:id] === i.identifier.chop.split('/').last.split('-')[1..-1].join('-'))
+            i_id = i.identifier.chop.split('/').last.split('-')[1..-1].join('-')
+            active = (@item[:id] === i_id)
     %>
-    <object class="nav-icon<%= active ? ' active' : '' %>" type="image/svg+xml" data="<%= i.path %>"></object>
+    <object id="nav-icon-<%= i_id %>" class="nav-icon<%= active ? ' active' : '' %>" type="image/svg+xml" data="<%= i.path %>" data-id="<%= i_id %>"></object>
     <%  end %>
 </div>
 <ol id="nav">

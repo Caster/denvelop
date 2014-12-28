@@ -8,6 +8,7 @@
 
 #loading-gear {
     display: none; // this is shown by JS
+    z-index: 3 !important;
 }
 
 #logo {
@@ -37,15 +38,18 @@
     }
 
     & > .nav-icon {
+        display: none; // this is shown by JS
         position: absolute;
-        top: 15%;
-        left: 15%;
+        top: 28%;
+        left: 0%;
         z-index: 1;
         height: @line-height-px;
         margin: @menu-padding-v @menu-padding-h;
         padding: 0;
 
         &.active {
+            top: 15%;
+            left: 15%;
             z-index: 7;
         }
     }

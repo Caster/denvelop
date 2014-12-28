@@ -15,7 +15,7 @@ yuiCompress: !!bool true
         */
         navigate = function() {
             if (historySupport) {
-                $(window).trigger('denvelop-navigating');
+                $(window).trigger('denvelop-navigating', [curPage]);
                 $.ajax({
                     url: $(this).attr('href') + 'page.json',
                     success: updatePage,
@@ -169,6 +169,7 @@ yuiCompress: !!bool true
         if (historySupport) {
             // save the current state
             curPage = {
+                id: $('.nav-icon.active').attr('data-id'),
                 title: document.title,
                 url: window.location.pathname,
                 header: $('#header').html(),
