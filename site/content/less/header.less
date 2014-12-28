@@ -35,6 +35,20 @@
             z-index: 2;
         }
     }
+
+    & > .nav-icon {
+        position: absolute;
+        top: 15%;
+        left: 15%;
+        z-index: 1;
+        height: @line-height-px;
+        margin: @menu-padding-v @menu-padding-h;
+        padding: 0;
+
+        &.active {
+            z-index: 7;
+        }
+    }
 }
 
 #lang-select {
