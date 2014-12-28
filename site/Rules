@@ -50,10 +50,9 @@ compile '/items/*/', :rep => :json do
 end
 
 compile '/js/*/' do
+    filter :erb
     if item[:yuiCompress]
         filter :yui_compressor, :type => :js
-    else
-        nil
     end
 end
 

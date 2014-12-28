@@ -6,17 +6,34 @@
     background: @color-main-dark;
 }
 
+#loading-gear {
+    display: none; // this is shown by JS
+}
+
 #logo {
+    position: relative;
     display: inline-block;
     vertical-align: middle;
     height: (@line-height-px + 2 * @menu-padding-v);
     margin: 0;
     padding: 0;
 
-    & > * {
+    & > .logo-layer {
         height: @line-height-px;
         margin: @menu-padding-v @menu-padding-h;
         padding: 0;
+
+        &.logo-layer-fg,
+        &.logo-layer-icon {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 5;
+        }
+
+        &.logo-layer-icon {
+            z-index: 2;
+        }
     }
 }
 
