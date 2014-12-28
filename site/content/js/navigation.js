@@ -1,5 +1,5 @@
 ---
-yuiCompress: !!bool true
+yuiCompress: !!bool false
 ---
 (function($, window, document) {
 
@@ -84,7 +84,8 @@ yuiCompress: !!bool true
                 contentW = content.width(),
                 newContent = $('<div />', { html: page.html }),
                 contentWrap = $('<div />'),
-                contentWrapWrap = $('<div />');
+                contentWrapWrap = $('<div />'),
+                scrollLeft = (getPageIndex(curPage) < getPageIndex(page));
             contentWrap.css({
                 width: contentW * 2 + contentM * 4
             });
@@ -102,9 +103,16 @@ yuiCompress: !!bool true
             });
             content.wrap(contentWrapWrap);
             content.wrap(contentWrap);
-            content.after(newContent);
-            content.parent().css('marginLeft', 0).animate({
-                marginLeft: -contentW - contentM * 2
+            // do some animating
+            var mStart = (scrollLeft ? 0 : -contentW - contentM * 2),
+                mEnd = (scrollLeft ? -contentW - contentM * 2 : 0);
+            if (scrollLeft) {
+                content.after(newContent);
+            } else {
+                content.before(newContent);
+            }
+            content.parent().css('marginLeft', mStart).animate({
+                marginLeft: mEnd
             }, function() {
                 // actually remove the old content now that it is off screen
                 content.parent().css('marginLeft', 0)
@@ -114,7 +122,21 @@ yuiCompress: !!bool true
                     .attr('id', 'content')
                     .removeAttr('style');
             });
-        }
+        },
+        /**
+         * Given a page, return an absolute index that can be used to order pages.
+         */
+        getPageIndex = function(page) {
+            var index = 0,
+                split = page.url.split('/'),
+                navItems = $('<div />').html(page.header).find('#nav > li');
+            index += navItems.size() *
+                (split.length > 1 && split[1] === 'en' ? 0 : 1);
+            index += navItems.index(navItems.filter(function(index) {
+                return ($('a, span', this).attr('href') === page.url);
+            }));
+            return index;
+        };
 
     $(function() {
         if (historySupport) {
