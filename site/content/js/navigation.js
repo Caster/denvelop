@@ -1,5 +1,5 @@
 ---
-yuiCompress: !!bool false
+yuiCompress: !!bool true
 ---
 (function($, window, document) {
 
@@ -77,7 +77,16 @@ yuiCompress: !!bool false
         /**
          * Update the page content using an animation.
          */
-        updatePageContent = function(page) {
+        updatePageContent = function(page, oldPage) {
+            if (updatingPageContent) {
+                updatePageContentNext = page;
+                return;
+            }
+            if (typeof(oldPage) === 'undefined') {
+                oldPage = curPage;
+            }
+
+            updatingPageContent = true;
             var content = $('#content'),
                 contentM = parseInt(content.css('margin-left')),
                 contentP = parseInt(content.css('padding-left')),
@@ -85,7 +94,7 @@ yuiCompress: !!bool false
                 newContent = $('<div />', { html: page.html }),
                 contentWrap = $('<div />'),
                 contentWrapWrap = $('<div />'),
-                scrollLeft = (getPageIndex(curPage) < getPageIndex(page));
+                scrollLeft = (getPageIndex(oldPage) < getPageIndex(page));
             contentWrap.css({
                 width: contentW * 2 + contentM * 4
             });
@@ -121,8 +130,26 @@ yuiCompress: !!bool false
                 newContent.unwrap().unwrap()
                     .attr('id', 'content')
                     .removeAttr('style');
+                updatingPageContent = false;
+                // check if a request has come in in the meantime
+                if (updatePageContentNext !== null) {
+                    var newPage = updatePageContentNext;
+                    updatePageContentNext = null;
+                    if (newPage.url !== page.url) {
+                        updatePageContent(newPage, page);
+                    }
+                }
             });
         },
+        /**
+        * If a content update animation is currently running.
+        */
+        updatingPageContent = false,
+        /**
+        * Page to navigate to when the currently running content update
+        * animation is stopped.
+        */
+        updatePageContentNext = null,
         /**
          * Given a page, return an absolute index that can be used to order pages.
          */
