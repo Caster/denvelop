@@ -31,3 +31,28 @@ h6 {
         }
     }
 }
+
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    .page {
+        width: (@screen-sm-min - @spacing-lg * 2 - @spacing-md * 2);
+        margin: 0 auto @spacing-lg;
+    }
+}
+
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+    .page {
+        display: inline-block;
+        vertical-align: top;
+        width: ((@screen-md-min - @spacing-lg * 3 - @spacing-md * 4) / 2);
+
+        &:nth-child(2n - 1) {
+            margin-right: @spacing-lg;
+            margin-left: ~"calc( 1 * ( 100% -" (@screen-md-min - @spacing-lg * 2) ~") / 2 )";
+        }
+
+        &:nth-child(2n) {
+            margin-right: ~"calc( 1 * ( 100% -" (@screen-md-min - @spacing-lg * 2) ~") / 2 - 4px )";
+            margin-left: 0;
+        }
+    }
+}
