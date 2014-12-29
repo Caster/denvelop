@@ -104,6 +104,9 @@ yuiCompress: !!bool true
                 overflow: 'hidden',
                 padding: contentP
             });
+            if (content.css('display') === 'inline-block') {
+                contentWrapWrap.css('display', 'inline-block');
+            }
             content.add(newContent).css({
                 display: 'inline-block',
                 verticalAlign: 'top',

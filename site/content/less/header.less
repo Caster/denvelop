@@ -1,6 +1,7 @@
 @menu-border: 2px;
 @menu-padding-h: @spacing-md;
 @menu-padding-v: @spacing-md;
+@menu-wide-width: (162 / 146) * (@line-height-px * 3 + @menu-padding-v * 6);
 
 #header {
     background: @color-main-dark;
@@ -110,17 +111,17 @@
         height: (@line-height-px * 2 + @menu-padding-v * 4);
 
         & > .logo-layer {
-            height: @line-height-px * 2;
+            height: (@line-height-px * 2);
             margin: (@menu-padding-v * 2) (@menu-padding-h * 2);
         }
 
         & > .nav-icon {
-            height: @line-height-px * 2;
+            height: (@line-height-px * 2);
             margin: (@menu-padding-v * 2) (@menu-padding-h * 2);
         }
 
         #logo-margin-cover {
-            top: @line-height-px * 2 + @menu-padding-v * 2;
+            top: (@line-height-px * 2) + @menu-padding-v * 2;
         }
     }
 
@@ -128,8 +129,77 @@
         display: block;
     }
 
+    #lang-select > li.active {
+        border-bottom: 0 none;
+
+        & > a,
+        & > span {
+            padding-bottom: @menu-padding-v;
+        }
+    }
+
     #nav {
         margin: (@line-height-px / 2 + @menu-padding-v) 0;
         margin-left: @menu-padding-h;
+    }
+}
+
+@media (min-width: @screen-lg-min) {
+    #logo {
+        display: block;
+        height: (@line-height-px * 3 + @menu-padding-v * 6);
+
+        & > .logo-layer {
+            height: (@line-height-px * 3);
+            margin: (@menu-padding-v * 3) (@menu-padding-h * 3);
+        }
+
+        & > .nav-icon {
+            height: (@line-height-px * 3);
+            margin: (@menu-padding-v * 3) (@menu-padding-h * 3);
+        }
+
+        #logo-margin-cover {
+            top: (@line-height-px * 3) + @menu-padding-v * 3;
+        }
+    }
+
+    #header {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: @menu-wide-width;
+        height: 100%;
+    }
+
+    #lang-select {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: @menu-wide-width;
+        text-align: center;
+    }
+
+    #nav {
+        display: block;
+        width: @menu-wide-width;
+
+        & > li {
+            display: block;
+            width: @menu-wide-width;
+        }
+    }
+
+    #lang-select,
+    #nav {
+        & > li.active {
+            border-bottom: 0 none;
+
+            & > a,
+            & > span {
+                padding-bottom: @menu-padding-v;
+            }
+        }
     }
 }

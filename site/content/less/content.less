@@ -39,7 +39,7 @@ h6 {
     }
 }
 
-@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+@media (min-width: @screen-md-min) {
     .page {
         display: inline-block;
         vertical-align: top;
@@ -54,5 +54,13 @@ h6 {
             margin-right: ~"calc( 1 * ( 100% -" (@screen-md-min - @spacing-lg * 2) ~") / 2 - 4px )";
             margin-left: 0;
         }
+    }
+}
+
+@media (min-width: @screen-lg-min) {
+    #content {
+        display: inline-block;
+        vertical-align: top;
+        width: ~"calc(100% -" (@menu-wide-width + @spacing-lg * 2) ~"- 4px )";
     }
 }
