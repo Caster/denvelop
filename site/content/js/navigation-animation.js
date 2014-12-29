@@ -10,29 +10,34 @@ yuiCompress: !!bool false
     var animate = function(event, prevPage, newPage) {
             // stop spinning the cog-wheel and hide it
             gearRotating = false;
-            // show the icon of the new page
-            if (prevPage.id === newPage.id) {
-                var icon = $('#nav-icon-' + newPage.id);
-                if (icon.is(':animated')) {
-                    icon.data('stop-hiding', true);
+            // show the icon of the new page, but only if needed
+            if (prevPage.id !== newPage.id) {
+                if (prevPage.id === newPage.id) {
+                    var icon = $('#nav-icon-' + newPage.id);
+                    if (icon.is(':animated')) {
+                        icon.data('stop-hiding', true);
+                    } else {
+                        setIconVisible(newPage.id, true);
+                    }
                 } else {
                     setIconVisible(newPage.id, true);
                 }
-            } else {
-                setIconVisible(newPage.id, true);
             }
         },
         /**
          * jQuery event handler that should be triggered when navigating starts
          * ('denvelop-navigating' event). This will show a spinning cog-wheel.
          */
-        animateLoading = function(event, page) {
+        animateLoading = function(event, page, newPageId) {
             // start spinning the cog-wheel and show it
             gearRotating = true;
             rotateSomewhat();
             gearObj.stop().animate({'top': 0}, 150);
-            // hide the icon of the current page
-            setIconVisible(page.id, false);
+            // hide the icon of the current page, but only if it will actually
+            // get a different icon, otherwise there is no point
+            if (page.id !== newPageId) {
+                setIconVisible(page.id, false);
+            }
         },
         gear = null,
         gearObj = null,
