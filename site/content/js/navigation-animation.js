@@ -1,5 +1,5 @@
 ---
-yuiCompress: !!bool false
+yuiCompress: !!bool true
 ---
 (function($, window, document) {
 
@@ -32,7 +32,7 @@ yuiCompress: !!bool false
             // start spinning the cog-wheel and show it
             gearRotating = true;
             rotateSomewhat();
-            gearObj.stop().animate({'top': 0}, 150);
+            gearObj.stop().animate({'top': '-5%'}, 150);
             // hide the icon of the current page, but only if it will actually
             // get a different icon, otherwise there is no point
             if (page.id !== newPageId) {

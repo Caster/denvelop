@@ -55,12 +55,26 @@ h6 {
             margin-left: 0;
         }
     }
+
+    .floaty-columns .page {
+        &:nth-child(2n - 1) {
+            float: left;
+        }
+
+        &:nth-child(2n) {
+            float: right;
+        }
+    }
 }
 
 @media (min-width: @screen-lg-min) {
+    body {
+        padding-left: @menu-wide-width;
+    }
+
     #content {
         display: inline-block;
         vertical-align: top;
-        width: ~"calc(100% -" (@menu-wide-width + @spacing-lg * 2) ~"- 4px )";
+        width: ~"calc(100% -" (@spacing-lg * 2) ~"- 4px )";
     }
 }

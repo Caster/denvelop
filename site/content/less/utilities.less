@@ -1,3 +1,22 @@
+.logo {
+    display: block;
+    height: (@line-height-px * 3);
+    float: left;
+    margin: (@line-height-px / 2) (@line-height-px / 3 * 2) (@line-height-px / 2) (@line-height-px / 3);
+}
+
+.project-ref {
+    color: @color-accent;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: @color-main-dark;
+    }
+}
+
 .text-accent {
     color: @color-accent;
 }

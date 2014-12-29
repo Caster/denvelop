@@ -2,19 +2,21 @@
 id: about
 title: About
 ---
-<div class="page">
-    <h1>About</h1>
-    <p>About this website.</p>
+<div class="floaty-columns">
+    <div class="page">
+        <h1>About Denvelop</h1>
+        <p>Being a (web) developer, I have built this website myself. I have used quite a few tools, libraries and frameworks however. On this page I have created an overview of all projects that helped me, to thank the people who work(ed) on those projects. Thank you!</p>
+    </div>
+    <div class="page">
+        <p><%= logo 'nanoc' %><a class="project-ref" href="http://nanoc.ws/">nanoc</a> is a tool for generating static websites. It is written in <a class="project-ref" href="https://www.ruby-lang.org/">Ruby</a>, easy to extend and great to work with as it includes a simple webserver that can be used for local development and testing. For this website, nanoc does not only generate HTML files, but JSON files too (for asnynchronous page loads and nice animations). Furthermore, nanoc automatically runs the LESS (see below) compiler whenever that is needed (and only then!), compresses JavaScript and CSS using the <a class="project-ref" href="http://yui.github.io/yuicompressor/">YUI Compressor</a> and finally renders SVG files of the images I create in Ipe (see below). All HTML output is filtered through <a class="project-ref" href="http://tidy.sourceforge.net/">HTML Tidy</a>, so that the source is readable (as far as HTML source can be readable of course).</p>
+    </div>
+    <div class="page">
+        <p><%= logo 'less' %><a class="project-ref" href="http://lesscss.org/">LESS</a> is an extension of the CSS standard that makes it easier to write and maintain website stylesheets. Browsers of course "only" understand CSS, because that is the standard, so LESS comes with a compiler that transforms LESS markup into CSS markup. Running this compiler is done automatically by nanoc for this website. I first got to know LESS via <a class="project-ref" href="http://getbootstrap.com/">Bootstrap</a> (who use it internally) and for this site I have copied a few bits and bobs from them (such as <a href="https://github.com/twbs/bootstrap/blob/master/less/normalize.less">normalize.less</a>).</p>
+    </div>
+    <div class="page">
+        <p><%= logo 'ipe' %><a class="project-ref" href="http://sourceforge.net/projects/ipe7/">Ipe</a> is a drawing tool that can be used to create vector graphics. It is focused mainly on creating geometric images (which is very useful when making technical figures). That is how I got to know the program: via my study computer science. It is however possible too to use the program for other stuff, as can be seen on this website. All images on this site (except the logos on this page of course) have been created by me using Ipe and are transformed into SVG files by nanoc, so that (modern) browser understand it.</p>
+    </div>
+    <div class="page">
+        The design of this website is loosely based on Google's  <a class="project-ref" href="www.google.com/design/spec/material-design/">Material Design</a>. More specifically, the color scheme and use of "pages" was something I liked a lot and used. Finally I have, during development, found a lot of answers on Q&amp;A site <a class="project-ref" href="http://stackoverflow.com/">Stack Overflow</a>.
+    </div>
 </div>
-
-<!--
-
-    nanoc
-    HTML Tidy
-    LESS CSS
-    Bootstrap (based on)
-    Material Design (based on)
-    Dutch flag: http://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg
-    English flag: https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg
-
-  -->

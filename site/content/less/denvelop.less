@@ -1,5 +1,5 @@
 ---
-yuiCompress: !!bool false
+yuiCompress: !!bool true
 ---
 
 // Using CSS property order as described loosely here:
@@ -23,6 +23,18 @@ html {
 body {
     background: @color-main;
     height: 100%;
+}
+
+a {
+    color: @color-main-dark;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: @color-main;
+    }
 }
 
 @import "header.less";
