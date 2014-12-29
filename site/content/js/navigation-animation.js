@@ -58,7 +58,7 @@ yuiCompress: !!bool false
          * Show or hide a navigation icon.
          */
         setIconVisible = function(id, visible) {
-            $('#nav-icon-' + id).stop().animate({
+            $('#nav-icon-' + id).css('display', 'block').stop().animate({
                 'top': (visible ? '-50%' : '-100%'),
                 'left': (visible ? '-8%' : '8%')
             }, function() {
@@ -124,6 +124,8 @@ yuiCompress: !!bool false
                     var fg = Snap(fgWrapper.get(0));
                     fg.selectAll('path:not(:last-child)').remove();
                     bg.selectAll('path:last-child').remove();
+                    // now show the gear icon, that is covered by the envelope fg
+                    gearObj.css({'display': 'block', 'top': '20%'});
                 })
                 .appendTo($('#logo'));
         },
@@ -158,13 +160,12 @@ yuiCompress: !!bool false
         // make gear icon globally available for easy access
         gearObj = $('#loading-gear');
         svgObjOnLoad(gearObj, gearOnLoad);
-        gearObj.css({'display': 'block', 'top': '20%'});
         // split the envelope icon in parts, so that we can move icons in and
         // out of the envelope easily and also add a margin element that covers
         // the gear when it moves out of the envelope (and other icons too)
         splitEnvelope();
-        // show navigation icons
-        $('.nav-icon').css('display', 'block');
+        // show navigation icon
+        $('.nav-icon.active').css('display', 'block');
         // bind to the custom event that is fired as soon as a navigation link
         // is clicked and intercepted, but the page must still be loaded
         $(window).on('denvelop-navigating', animateLoading);
