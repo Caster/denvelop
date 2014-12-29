@@ -16,6 +16,7 @@ yuiCompress: !!bool true
         navigate = function() {
             if (historySupport) {
                 $(window).trigger('denvelop-navigating', [curPage]);
+                console.log($(this).attr('href') + 'page.json');
                 $.ajax({
                     url: $(this).attr('href') + 'page.json',
                     success: updatePage,
@@ -67,7 +68,9 @@ yuiCompress: !!bool true
 
             // possibly push the new state on the history stack
             if (addHistoryState) {
-                window.history.pushState(page, page.title, page.url);
+                // not using page.url because the URL may need to be relative
+                console.log(this.url.split('page.json?')[0]);
+                window.history.pushState(page, page.title, this.url.split('page.json?')[0]);
             }
 
             // swap curPage and trigger custom event
@@ -160,7 +163,7 @@ yuiCompress: !!bool true
             index += navItems.size() *
                 (split.length > 1 && split[1] === 'en' ? 0 : 1);
             index += navItems.index(navItems.filter(function(index) {
-                return ($('a, span', this).attr('href') === page.url);
+                return ($('a, span', this).attr('data-url') === page.url);
             }));
             return index;
         };

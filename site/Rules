@@ -42,11 +42,13 @@ compile '/items/*/' do
     filter :erb
     layout 'default'
     filter :tidy
+    filter :relativize_paths, :type => :html
 end
 
 compile '/items/*/', :rep => :json do
     filter :erb
     layout 'json'
+    filter :relativize_paths, :type => :css
 end
 
 compile '/js/*/' do
@@ -62,6 +64,7 @@ compile '/less/*/' do
         if item[:yuiCompress]
             filter :yui_compressor, :type => :css
         end
+        filter :relativize_paths, :type => :css
     else
         nil
     end

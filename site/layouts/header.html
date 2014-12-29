@@ -18,11 +18,11 @@
             if an_item.path == @item.path
     %>
     <li class="active">
-        <span href="<%= an_item.path %>"><%= an_item[:title] %></span>
+        <span data-url="<%= an_item.path %>"><%= an_item[:title] %></span>
     </li>
     <%      else %>
     <li>
-        <a href="<%= an_item.path %>"><%= an_item[:title] %></a>
+        <a data-url="<%= an_item.path %>" href="<%= an_item.path %>"><%= an_item[:title] %></a>
     </li>
     <%
             end
@@ -38,6 +38,7 @@
         </span>
     <% else %>
         <a href="<%= t.path %>"
+                data-url="<%= t.path %>"
                 lang="<%= language_code_of(t) %>"
                 hreflang="<%= language_code_of(t) %>">
             <%= language_code_of(t).upcase %>

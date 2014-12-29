@@ -2,12 +2,23 @@
 
 require 'json'
 
+# based on the render function of Nanoc::Helpers::Rendering
+rpFilter = Nanoc::Filters::RelativizePaths.new({
+        :content    => nil,
+        :item       => @item,
+        :item_rep   => @item_rep,
+        :items      => @items,
+        :layout     => @layout,
+        :layouts    => @layouts,
+        :config     => @config,
+        :site       => @site
+      })
 page = {
     :id => @item[:id],
     :title => @item[:title_full],
     :url => @item[:url],
-    :header => render('header'),
-    :html => yield
+    :header => rpFilter.run(render('header'), :type => :html),
+    :html => rpFilter.run(yield, :type => :html)
 }
 
 %>
