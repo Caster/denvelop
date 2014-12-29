@@ -58,7 +58,7 @@ yuiCompress: !!bool false
          * Show or hide a navigation icon.
          */
         setIconVisible = function(id, visible) {
-            $('#nav-icon-' + id).css('display', 'block').stop().animate({
+            $('#nav-icon-' + id).stop().animate({
                 'top': (visible ? '-50%' : '-100%'),
                 'left': (visible ? '-8%' : '8%')
             }, function() {
@@ -126,6 +126,8 @@ yuiCompress: !!bool false
                     bg.selectAll('path:last-child').remove();
                     // now show the gear icon, that is covered by the envelope fg
                     gearObj.css({'display': 'block', 'top': '20%'});
+                    // and show the other navigation icons
+                    $('.nav-icon').css('display', 'block');
                 })
                 .appendTo($('#logo'));
         },
