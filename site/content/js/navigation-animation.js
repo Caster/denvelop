@@ -95,18 +95,7 @@ yuiCompress: !!bool false
 
             // append a margin element to cover icons sticking out of the bottom
             // of the envelope
-            var marginEl = $('<div />');
-            marginEl.css({
-                'position': 'absolute',
-                'top': parseInt(bgWrapper.css('marginTop'))
-                        + bgWrapper.height(),
-                'right': 0,
-                'bottom': 0,
-                'left': 0,
-                'z-index': 4,
-                'background': $('#header').css('background-color')
-            });
-            $('#logo').append(marginEl);
+            $('#logo').append($('<div />', {'id': 'logo-margin-cover'}));
         },
         /**
          * Called when the envelope SVG element loads.
