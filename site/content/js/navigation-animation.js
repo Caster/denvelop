@@ -90,16 +90,9 @@ yuiCompress: !!bool false
          * so that icons can be put 'in' the envelope.
          */
         splitEnvelope = function() {
-            var bgWrapper = $('#envelope'),
-                bg = Snap(bgWrapper.get(0)),
-                fgWrapper = bgWrapper.clone();
-            fgWrapper.addClass('logo-layer-fg')
-                .on('load', function() {
-                    var fg = Snap(fgWrapper.get(0));
-                    fg.selectAll('path:not(:last-child)').remove();
-                    bg.selectAll('path:last-child').remove();
-                })
-                .appendTo($('#logo'));
+            var bgWrapper = $('#envelope');
+            svgObjOnLoad(bgWrapper, splitEnvelopeOnLoad);
+
             // append a margin element to cover icons sticking out of the bottom
             // of the envelope
             var marginEl = $('<div />');
@@ -114,12 +107,57 @@ yuiCompress: !!bool false
                 'background': $('#header').css('background-color')
             });
             $('#logo').append(marginEl);
+        },
+        /**
+         * Called when the envelope SVG element loads.
+         */
+        splitEnvelopeOnLoad = function() {
+            if ($(this).data('loaded')) {
+                return;
+            }
+
+            $(this).data('loaded', true);
+            var bg = Snap(this),
+                fgWrapper = $(this).clone();
+            fgWrapper.addClass('logo-layer-fg')
+                .on('load', function() {
+                    var fg = Snap(fgWrapper.get(0));
+                    fg.selectAll('path:not(:last-child)').remove();
+                    bg.selectAll('path:last-child').remove();
+                })
+                .appendTo($('#logo'));
+        },
+        /**
+         * Called when the gear SVG element loads.
+         */
+        gearOnLoad = function() {
+            if (gear === null) {
+                gear = Snap(this).select('g');
+            }
+        },
+        /**
+         * Attach an onload event listener to an object element.
+         * This works in both Chrome and Firefox.
+         */
+        svgObjOnLoad = function(obj, onLoad, onLoadParams) {
+            if (typeof(onLoadParams) === 'undefined') {
+                onLoadParams = [];
+            }
+
+            obj.on('load', onLoad);
+            var objEl = obj.get(0);
+            if (typeof(objEl.contentDocument) !== 'undefined' &&
+                    objEl.contentDocument !== null &&
+                    objEl.contentDocument.readyState === 'complete' &&
+                    objEl.contentDocument.getElementsByTagName('svg').length > 0) {
+                onLoad.apply(objEl, onLoadParams);
+            }
         };
 
     $(function() {
         // make gear icon globally available for easy access
         gearObj = $('#loading-gear');
-        gear = Snap(gearObj.get(0)).select('g');
+        svgObjOnLoad(gearObj, gearOnLoad);
         gearObj.css({'display': 'block', 'top': '20%'});
         // split the envelope icon in parts, so that we can move icons in and
         // out of the envelope easily and also add a margin element that covers

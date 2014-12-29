@@ -16,7 +16,6 @@ yuiCompress: !!bool true
         navigate = function() {
             if (historySupport) {
                 $(window).trigger('denvelop-navigating', [curPage]);
-                console.log($(this).attr('href') + 'page.json');
                 $.ajax({
                     url: $(this).attr('href') + 'page.json',
                     success: updatePage,
@@ -69,7 +68,6 @@ yuiCompress: !!bool true
             // possibly push the new state on the history stack
             if (addHistoryState) {
                 // not using page.url because the URL may need to be relative
-                console.log(this.url.split('page.json?')[0]);
                 window.history.pushState(page, page.title, this.url.split('page.json?')[0]);
             }
 
