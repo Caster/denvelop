@@ -2,10 +2,10 @@
 id: home
 title: Home
 ---
+<% about_me = @items['/items/nl/over-mij/'] %>
 <div class="page">
-    <h1>Denvelop</h1>
-    <p>Dit is de site van een student.</p>
+    <p>Welkom op Denvelop! Dit is <a class="nav-link" <%= nav_attrs about_me %> href="<%= about_me.path %>">mijn</a> domein, waar ik mee pruts en knoei en wat altijd in ontwikkeling is. Klik gerust wat rond en mocht je iets missen, kijk dan over een tijdje weer, de kans is groot dat het tegen die tijd is toegevoegd of wel werkt.</p>
 </div>
 <div class="page">
-    <p>Hier komt een lijst van leuke projecten. Of zo.</p>
+    <p>Hier komt een lijst van leuke projecten waar ik aan gewerkt heb, daar wordt nog aan gewerkt (zoals altijd op dit domein)!</p>
 </div>
