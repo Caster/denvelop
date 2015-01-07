@@ -57,6 +57,12 @@ yuiCompress: !!bool true
                 addHistoryState = true;
             }
 
+            // possibly push the new state on the history stack
+            if (addHistoryState) {
+                // not using page.url because the URL may need to be relative
+                window.history.pushState(page, page.title, this.url.split('page.json?')[0]);
+            }
+
             // update document content and header, re-attach handlers in header
             document.title = page.title;
             updatePageContent(page);
@@ -64,12 +70,6 @@ yuiCompress: !!bool true
             $('#header').children(':not(#logo)').remove();
             $('#header').append($(page.header).filter(':not(#logo)'));
             updateHeaderLinks();
-
-            // possibly push the new state on the history stack
-            if (addHistoryState) {
-                // not using page.url because the URL may need to be relative
-                window.history.pushState(page, page.title, this.url.split('page.json?')[0]);
-            }
 
             // swap curPage and trigger custom event
             $(window).trigger('denvelop-navigated', [curPage, page]);
