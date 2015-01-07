@@ -43,9 +43,9 @@ yuiCompress: !!bool true
             }
 
             if (enable) {
-                $('#header a').on('click', navigate);
+                $('#header a, .nav-link').on('click', navigate);
             } else {
-                $('#header a').off();
+                $('#header a, .nav-link').off();
             }
         },
         /**
@@ -184,6 +184,7 @@ yuiCompress: !!bool true
             updateHeaderLinks();
             // attach an event handler for when the user uses 'prev' and 'next'
             $(window).on('popstate', function(event) {
+                $(window).trigger('denvelop-navigating', [curPage, event.originalEvent.state.id]);
                 updatePage(event.originalEvent.state, false);
             });
         }

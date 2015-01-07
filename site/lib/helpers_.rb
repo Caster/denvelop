@@ -3,3 +3,6 @@ include Nanoc::Helpers::Rendering
 
 # for easily including logos on the about page
 include LogoHelper
+
+# for navigation goodness
+include NavHelper

@@ -13,16 +13,16 @@
 </div>
 <ol id="nav">
     <%
-        ['home', 'about'].each do |id|
+        ['home', 'about-me', 'about'].each do |id|
             an_item = item_for_id(id, @item)
             if an_item.path == @item.path
     %>
     <li class="active">
-        <span data-id="<%= an_item[:id] %>" data-url="<%= an_item.path %>"><%= an_item[:title] %></span>
+        <span <%= nav_attrs an_item %>><%= an_item[:title] %></span>
     </li>
     <%      else %>
     <li>
-        <a data-id="<%= an_item[:id] %>" data-url="<%= an_item.path %>" href="<%= an_item.path %>"><%= an_item[:title] %></a>
+        <a <%= nav_attrs an_item %> href="<%= an_item.path %>"><%= an_item[:title] %></a>
     </li>
     <%
             end
@@ -38,8 +38,7 @@
         </span>
     <% else %>
         <a href="<%= t.path %>"
-                data-id="<%= t[:id] %>"
-                data-url="<%= t.path %>"
+                <%= nav_attrs t %>
                 lang="<%= language_code_of(t) %>"
                 hreflang="<%= language_code_of(t) %>">
             <%= language_code_of(t).upcase %>
