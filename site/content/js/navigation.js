@@ -53,6 +53,10 @@ yuiCompress: !!bool true
          * the history too.
          */
         updatePage = function(page, addHistoryState) {
+            if (page.url === curPage.url) {
+                $(window).trigger('denvelop-navigated', [curPage, page]);
+                return;
+            }
             if (typeof(addHistoryState) !== 'boolean') {
                 addHistoryState = true;
             }
