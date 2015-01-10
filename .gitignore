@@ -2,6 +2,3 @@
 /site/tmp/
 /site/crash.log
 
-/out/**
-!/out/**/.gitkeep
-!/out/**/
