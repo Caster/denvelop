@@ -11,8 +11,7 @@ nanoc installed. Just do the following:
 
 You will then find that [nanoc](http://nanoc.ws/) creates a directory `output`
 that contains a folder structure with plain old `index.html` files in
-directories and some images and such. **Future work:** make nanoc able to
-publish using rsync or over FTP, I think it is able to.
+directories and some images and such.
 
 Another sidenote: I have created figures using Ipe, the nanoc process will run
 the `iperender` tool, which you hence need to be able to compile the site.
