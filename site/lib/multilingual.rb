@@ -33,7 +33,7 @@ end
 #
 def language_code_of(item)
     # "/en/foo/" becomes "en"
-    (item.identifier.match(/^\/items\/([a-z]{2})\//) || [])[1]
+    (item.identifier.to_s.match(/^\/items\/([a-z]{2})\//) || [])[1]
 end
 
 #

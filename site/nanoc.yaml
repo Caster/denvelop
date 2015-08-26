@@ -1,3 +1,8 @@
+# The syntax to use for patterns in the Rules file. Can be either `"glob"`
+# (default) or `"legacy"`. The former will enable glob patterns, which behave
+# like Ruby’s File.fnmatch. The latter will enable Nanoc 3.x-style patterns.
+string_pattern_type: legacy
+
 # A list of file extensions that nanoc will consider to be textual rather than
 # binary. If an item with an extension not in this list is found,  the file
 # will be considered as binary.
@@ -35,8 +40,7 @@ prune:
 # “layout/” directories in the site directory.
 data_sources:
   -
-    # The type is the identifier of the data source. By default, this will be
-    # `filesystem_unified`.
+    # The type is the identifier of the data source.
     type: filesystem_unified
 
     # The path where items should be mounted (comparable to mount points in
@@ -61,6 +65,11 @@ data_sources:
     # The encoding to use for input files. If your input files are not in
     # UTF-8 (which they should be!), change this.
     encoding: utf-8
+
+    # The kind of identifier to use for items and layouts. The default is
+    # “full”, meaning that identifiers include file extensions. This can also
+    # be “legacy”, primarily used by older Nanoc sites.
+    identifier_type: legacy
 
 # Configuration for the “check” command, which run unit tests on the site.
 checks:
