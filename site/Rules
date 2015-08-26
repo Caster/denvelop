@@ -20,10 +20,18 @@
 preprocess do
     items.select{ |item| item[:title] != nil }.
         each{ |item|
+            # set title of the item
             item[:title_full] = 'Denvelop - ' + item[:title]
-            splitId = item.identifier.chop.split('/')
+            # build the URL of the item, which depends on the language of the
+            # item and the default language of the site
+            splitId = item.identifier.without_ext.split('/')
+            # special handling for index files
+            if splitId[-1] == 'index' then
+                splitId.pop
+            end
             joinId = (splitId[2] == default_language ?
                       splitId[3..-1] : splitId[2..-1]).join('/')
+            # set the URL
             item[:url] = (joinId.length > 0 ? '/' : '') + joinId + '/'
         }
 end
@@ -32,34 +40,34 @@ end
 # ---- COMPILE RULES -----------------------------------------------------------
 #
 
-compile '/img/*/' do
+compile '/img/**/*' do
     if item[:extension] == 'ipe'
         filter :ipe
     end
 end
 
-compile '/items/*/' do
+compile '/items/**/*' do
     filter :erb
-    layout 'default'
+    layout '/default.html'
     filter :tidy
     filter :relativize_paths, :type => :html
 end
 
-compile '/items/*/', :rep => :json do
+compile '/items/**/*', :rep => :json do
     filter :erb
-    layout 'json'
+    layout '/json.html'
     filter :relativize_paths, :type => :css
 end
 
-compile '/js/*/' do
+compile '/js/**/*' do
     filter :erb
     if item[:yuiCompress]
         filter :yui_compressor, :type => :js
     end
 end
 
-compile '/less/*/' do
-    if item.identifier.chop.split('/').last == 'denvelop'
+compile '/less/**/*' do
+    if item.identifier.without_ext.split('/').last == 'denvelop'
         filter :less
         if item[:yuiCompress]
             filter :yui_compressor, :type => :css
@@ -74,29 +82,29 @@ end
 # ---- ROUTING RULES -----------------------------------------------------------
 #
 
-route '/img/*/' do
+route '/img/**/*' do
     if item[:extension] == 'ipe'
-        item.identifier.chop + '.svg'
+        item.identifier.with_ext 'svg'
     else
-        item.identifier.chop + '.' + item[:extension]
+        item.identifier.with_ext item[:extension]
     end
 end
 
-route '/items/*/' do
+route '/items/**/*' do
     item[:url] + 'index.html'
 end
 
-route '/items/*/', :rep => :json do
+route '/items/**/*', :rep => :json do
     item[:url] + 'page.json'
 end
 
-route '/js/*/' do
-    item.identifier.chop + '.js'
+route '/js/**/*' do
+    item.identifier.with_ext 'js'
 end
 
-route '/less/*/' do
-    if item.identifier.chop.split('/').last == 'denvelop'
-        item.identifier.chop.gsub('less', 'css') + '.css'
+route '/less/**/*' do
+    if item.identifier.without_ext.split('/').last == 'denvelop'
+        item.identifier.without_ext.gsub('less', 'css') + '.css'
     else
         nil
     end
@@ -106,4 +114,4 @@ end
 # ---- LAYOUT RULES ------------------------------------------------------------
 #
 
-layout '*', :erb
+layout '/**/*', :erb

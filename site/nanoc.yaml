@@ -1,7 +1,7 @@
 # The syntax to use for patterns in the Rules file. Can be either `"glob"`
 # (default) or `"legacy"`. The former will enable glob patterns, which behave
 # like Ruby’s File.fnmatch. The latter will enable Nanoc 3.x-style patterns.
-string_pattern_type: legacy
+string_pattern_type: glob
 
 # A list of file extensions that nanoc will consider to be textual rather than
 # binary. If an item with an extension not in this list is found,  the file
@@ -69,7 +69,7 @@ data_sources:
     # The kind of identifier to use for items and layouts. The default is
     # “full”, meaning that identifiers include file extensions. This can also
     # be “legacy”, primarily used by older Nanoc sites.
-    identifier_type: legacy
+    identifier_type: full
 
 # Configuration for the “check” command, which run unit tests on the site.
 checks:

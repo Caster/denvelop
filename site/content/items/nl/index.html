@@ -2,7 +2,7 @@
 id: home
 title: Home
 ---
-<% about_me = @items['/items/nl/over-mij/'] %>
+<% about_me = @items['/items/nl/over-mij.*'] %>
 <div class="page">
     <p>Welkom op Denvelop! Dit is <a class="nav-link" <%= nav_attrs about_me %> href="<%= about_me.path %>">mijn</a> domein, waar ik mee pruts en knoei en wat altijd in ontwikkeling is. Klik gerust wat rond en mocht je iets missen, kijk dan over een tijdje weer, de kans is groot dat het tegen die tijd is toegevoegd of wel werkt.</p>
 </div>

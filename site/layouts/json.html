@@ -17,7 +17,7 @@ page = {
     :id => @item[:id],
     :title => @item[:title_full],
     :url => @item[:url],
-    :header => rpFilter.run(render('header'), :type => :html),
+    :header => rpFilter.run(render('/header.html'), :type => :html),
     :html => rpFilter.run(yield, :type => :html)
 }
 

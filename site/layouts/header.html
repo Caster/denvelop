@@ -1,11 +1,11 @@
 <div id="logo">
-    <object id="envelope" class="logo-layer" type="image/svg+xml" data="<%= @items['/img/envelope/'].path %>"></object>
-    <object id="loading-gear" class="logo-layer logo-layer-icon" type="image/svg+xml" data="<%= @items['/img/gear/'].path %>"></object>
+    <object id="envelope" class="logo-layer" type="image/svg+xml" data="<%= @items['/img/envelope.*'].path %>"></object>
+    <object id="loading-gear" class="logo-layer logo-layer-icon" type="image/svg+xml" data="<%= @items['/img/gear.*'].path %>"></object>
     <%
         @items.select do |i|
-            i.identifier.chop.start_with?('/img/icon-')
+            i.identifier.without_ext.start_with?('/img/icon-')
         end.each do |i|
-            i_id = i.identifier.chop.split('/').last.split('-')[1..-1].join('-')
+            i_id = i.identifier.without_ext.split('/').last.split('-')[1..-1].join('-')
             active = (@item[:id] === i_id)
     %>
     <object id="nav-icon-<%= i_id %>" class="nav-icon<%= active ? ' active' : '' %>" type="image/svg+xml" data="<%= i.path %>" data-id="<%= i_id %>"></object>
