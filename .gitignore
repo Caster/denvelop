@@ -1,4 +1,9 @@
+# Nanoc temporary/output files
 /site/output/
 /site/tmp/
 /site/crash.log
+/site/nanoc-serverid.pid
 
+# Bundler config and installed gems
+/site/.bundle/
+/site/vendor/
