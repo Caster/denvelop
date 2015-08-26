@@ -8,11 +8,11 @@ yuiCompress: !!bool true
          */
     var curPage,
         /**
-        * This function should be called in the jQuery click handler of a link
-        * element (`a`). It will try to use AJAX and history magic to keep page
-        * loading asynchronous. If it succeeds, it wil fire an event that may
-        * trigger some fancy animations, who knows.
-        */
+         * This function should be called in the jQuery click handler of a link
+         * element (`a`). It will try to use AJAX and history magic to keep page
+         * loading asynchronous. If it succeeds, it wil fire an event that may
+         * trigger some fancy animations, who knows.
+         */
         navigate = function() {
             if (historySupport) {
                 $(window).trigger('denvelop-navigating', [curPage, $(this).attr('data-id')]);
@@ -58,7 +58,7 @@ yuiCompress: !!bool true
                 return;
             }
             if (typeof(addHistoryState) !== 'boolean') {
-                addHistoryState = true;
+                addHistoryState = historySupport;
             }
 
             // possibly push the new state on the history stack
