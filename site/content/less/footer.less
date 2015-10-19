@@ -4,8 +4,14 @@
     .bg-color-inverted-secondary();
 }
 
+#feedback {
+    display: block;
+    font-family: @font-family-mono;
+    .text-color-inverted-secondary();
+}
+
 #footer {
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
@@ -19,6 +25,7 @@
             .bg-color-inverted-main();
         }
 
+        #feedback,
         #input {
             .text-color-inverted-main();
         }
@@ -31,11 +38,22 @@
 
 #input {
     display: inline-block;
-    font-family: 'monospace';
+    font-family: @font-family-mono;
     .text-color-inverted-secondary();
+    outline: none;
 
     &:before {
         content: ">";
-        padding-right: @spacing-sm;
+        padding-right: @spacing-md;
+        font-weight: bold;
+    }
+}
+
+#push {
+    height: (@spacing-md * 2 + @line-height-px); // footer height for 1 line
+    margin-bottom: @spacing-lg;
+
+    &.tall {
+        height: (@spacing-md * 2 + @line-height-px * 2); // 2 line footer
     }
 }
