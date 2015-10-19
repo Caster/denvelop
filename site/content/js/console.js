@@ -174,7 +174,8 @@ yuiCompress: !!bool true
         'about-me': s('This is desh, the Denvelop Shell, programmed by Thom.'),
         'cd': function(path) {
             var options = completers.ls(path);
-            if (options.length === 1) {
+            if (options.length === 1 ||
+                    (options.length > 1 && options[0] === path)) {
                 var url = helpers.dirResolve(location.pathname, options[0]);
                 $('#header a, .nav-link').
                     filter('[data-url="' + url + '"]').
