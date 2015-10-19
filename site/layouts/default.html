@@ -18,6 +18,9 @@
         <div id="content">
             <%= yield %>
         </div>
+        <div id="footer">
+            <span id="input"></span><span id="cursor">&nbsp;</span>
+        </div>
 
         <!-- load scripts at bottom of page for faster page load -->
 <% if config[:develop_local] %>
@@ -29,5 +32,6 @@
 <% end %>
         <script type="text/javascript" src="<%= @items['/js/navigation.*'].path %>"></script>
         <script type="text/javascript" src="<%= @items['/js/navigation-animation.*'].path %>"></script>
+        <script type="text/javascript" src="<%= @items['/js/console.*'].path %>"></script>
     </body>
 </html>

@@ -1,0 +1,41 @@
+#cursor {
+    display: inline-block;
+    width: 0.7em;
+    .bg-color-inverted-secondary();
+}
+
+#footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: @spacing-md;
+    background: @color-main-dark;
+
+    &.active {
+        .text-color-inverted-main();
+
+        #cursor {
+            .bg-color-inverted-main();
+        }
+
+        #input {
+            .text-color-inverted-main();
+        }
+    }
+
+    @media (min-width: @screen-lg-min) {
+        left: @menu-wide-width;
+    }
+}
+
+#input {
+    display: inline-block;
+    font-family: 'monospace';
+    .text-color-inverted-secondary();
+
+    &:before {
+        content: ">";
+        padding-right: @spacing-sm;
+    }
+}
