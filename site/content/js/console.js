@@ -184,6 +184,15 @@ yuiCompress: !!bool true
             }
             return 'desh: Invalid path.';
         },
+        'cd-lang': function(lang) {
+            var options = completers['cd-lang'](lang);
+            if (options.length === 1 ||
+                    (options.length > 1 && options[0] === lang)) {
+                $('#lang-select a[lang="' + options[0] + '"]').click();
+                return '';
+            }
+            return 'desh: Invalid language.';
+        },
         'clear': function() { cInput = ''; $i.text(''); },
         'help': s('desh: This is a tiny console for geeks. No room for ' +
                     'further help, sorry.'),
@@ -215,6 +224,12 @@ yuiCompress: !!bool true
      */
     completers = {
         'cd': alias('ls', 'completers'),
+        'cd-lang': function(lang) {
+            var options = [];
+            $('#lang-select a').each(function() {
+                options.push($(this).attr('lang')); });
+            return helpers.filterPrefixed(lang, options);
+        },
         'ls': function(path) {
             if (typeof(path) !== 'string') return [];
             var dirName = path.split('/'),
