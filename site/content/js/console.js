@@ -321,6 +321,8 @@ yuiCompress: !!bool true
             $i.on('keypress', onConsoleKeyPress);
             // update state if console is blurred/focused
             $i.on('focus', function() {
+                // in case focus happens outside our control (e.g. by clicking)
+                cEnabled = true;
                 $c.addClass('active');
                 updateInput();
                 setFeedback(feedbackUp);
