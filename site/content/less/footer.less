@@ -1,11 +1,13 @@
 #cursor {
     display: inline-block;
+    vertical-align: middle;
     width: 0.7em;
     .bg-color-inverted-secondary();
 }
 
 #feedback {
     display: block;
+    margin-bottom: @spacing-sm;
     font-family: @font-family-mono;
     .text-color-inverted-secondary();
 }
@@ -38,6 +40,7 @@
 
 #input {
     display: inline-block;
+    vertical-align: middle;
     font-family: @font-family-mono;
     .text-color-inverted-secondary();
     outline: none;
@@ -54,6 +57,6 @@
     margin-bottom: @spacing-lg;
 
     &.tall {
-        height: (@spacing-md * 2 + @line-height-px * 2); // 2 line footer
+        height: (@spacing-md * 2 + @spacing-sm + @line-height-px * 2); // 2 line footer
     }
 }
