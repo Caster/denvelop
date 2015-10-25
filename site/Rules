@@ -78,6 +78,10 @@ compile '/less/**/*' do
     end
 end
 
+compile '/webfonts/**/*' do
+    nil
+end
+
 #
 # ---- ROUTING RULES -----------------------------------------------------------
 #
@@ -108,6 +112,10 @@ route '/less/**/*' do
     else
         nil
     end
+end
+
+route '/webfonts/**/*' do
+    item.identifier.to_s
 end
 
 #

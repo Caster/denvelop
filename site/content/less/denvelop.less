@@ -9,6 +9,7 @@ yuiCompress: !!bool true
 // - box model (height, padding, margin, ...)
 // - visual (font, color, background, border, box-shadow, ...)
 
+@import "fonts.less";
 @import "mixins.less";
 @import "variables.less";
 @import "normalize.less";
@@ -18,6 +19,10 @@ html {
     font-family: @font-family-main;
     font-size: @font-size;
     line-height: @line-height;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: @font-family-head;
 }
 
 body {
