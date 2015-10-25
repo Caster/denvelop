@@ -150,7 +150,7 @@ yuiCompress: !!bool true
      * See if we know the given command and act on it.
      */
     parseCmd = function(cmd) {
-        cmd = cmd.trim().split(/\s+/g);
+        cmd = cmd.trim().toLowerCase().split(/\s+/g);
         if (cmd.length > 0) {
             if (cmds.hasOwnProperty(cmd[0])) {
                 var cmdNm = cmd.splice(0, 1);
