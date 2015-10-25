@@ -2,10 +2,27 @@
 id: home
 title: Home
 ---
-<% about_me = @items['/items/en/whoami.*'] %>
 <div class="page">
-    <p>Welcome to Denvelop! This is <a class="nav-link" <%= nav_attrs about_me %> href="<%= about_me.path %>">my</a> domain, that I use to fiddle with and try things out. It is always under construction. Click around to get to know some things about me and my website. If you miss something, check back in a while, chances are that it has been addded or fixed by that time.</p>
+    <h1>Hey there!</h1>
+    <p>Welcome to Denvelop! This site is my playground as a developer. It is also a way of showing what is possible and what I like on websites. Do you want to know <%= nav_link @items['/items/en/whoami.*'], 'more about me' %>? Or are you interested in <%= nav_link @items['/items/en/about.*'], 'how this site was built' %>? Or are you just looking around?</p>
+    <p>Oh, by the way. There is a cute little feature hidden on this website. Kudos if you find it.</p>
 </div>
 <div class="page">
-    <p>As usual on this domain, this page is under construction. Later I will list projects I worked on or particularly like here.</p>
+    <h1>Finding me</h1>
+    <div class="external-account">
+        <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/' %>
+        <span class="description">You can find contact details on my staff page, at the TU/e website.</span>
+    </div>
+    <div class="external-account">
+        <%= logo 'GitHub', 'https://github.com/Caster' %>
+        <span class="description">GitHub hosts the code behind this website, plus some hobby projects of mine.</span>
+    </div>
+    <div class="external-account">
+        <%= logo 'Facebook', 'https://www.facebook.com/thom.castermans' %>
+        <span class="description">I am (not really) active on Facebook.  I do respond to messages (yay for mail alerts).</span>
+    </div>
+    <div class="external-account">
+        <%= logo 'Twitter', 'https://twitter.com/ThomCastermans' %>
+        <span class="description">You can find me (seldomly) on Twitter. I do respond to messages (yay for mail alerts).</span>
+    </div>
 </div>
