@@ -1,0 +1,20 @@
+.external-account {
+    &:not(:last-child) {
+        margin-bottom: @spacing-md;
+    }
+
+    .logo {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        height: auto;
+        width: (@line-height-px * 2.5);
+        margin: 0 (@line-height-px / 2) 0 0;
+    }
+
+    .description {
+        display: inline-block;
+        vertical-align: middle;
+        width: ~"calc( 100% -" (@spacing-md + @line-height-px * 3) ~")";
+    }
+}

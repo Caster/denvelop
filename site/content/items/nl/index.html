@@ -2,10 +2,27 @@
 id: home
 title: Home
 ---
-<% about_me = @items['/items/nl/over-mij.*'] %>
 <div class="page">
-    <p>Welkom op Denvelop! Dit is <a class="nav-link" <%= nav_attrs about_me %> href="<%= about_me.path %>">mijn</a> domein, waar ik mee pruts en knoei en wat altijd in ontwikkeling is. Klik gerust wat rond en mocht je iets missen, kijk dan over een tijdje weer, de kans is groot dat het tegen die tijd is toegevoegd of wel werkt.</p>
+    <h1>Hallo!</h1>
+    <p>Welkom op Denvelop! Deze site is een speeltuin voor mij als ontwikkelaar. Het is een uithangbord van wat mogelijk is en wat ik leuk vind. Wil je <%= nav_link @items['/items/nl/over-mij.*'], 'meer van me weten' %>? Of <%= nav_link @items['/items/nl/over.*'], 'iets lezen over hoe deze site is gebouwd' %>? Rondkijken kan ook natuurlijk.</p>
+    <p>Oh ja. Er is nog een leuke verborgen feature op de site. Zoekt en gij zult vinden.</p>
 </div>
 <div class="page">
-    <p>Hier komt een lijst van leuke projecten waar ik aan gewerkt heb, daar wordt nog aan gewerkt (zoals altijd op dit domein)!</p>
+    <h1>Waar vind je me?</h1>
+    <div class="external-account">
+        <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/' %>
+        <span class="description">Op mijn medewerkerspagina van de TU/e vind je gedetailleerde contactgegevens.</span>
+    </div>
+    <div class="external-account">
+        <%= logo 'GitHub', 'https://github.com/Caster' %>
+        <span class="description">Op GitHub staat de code achter deze site, plus een aantal hobby-projecten van me.</span>
+    </div>
+    <div class="external-account">
+        <%= logo 'Facebook', 'https://www.facebook.com/thom.castermans' %>
+        <span class="description">Ik ben (niet echt) actief op Facebook.</span>
+    </div>
+    <div class="external-account">
+        <%= logo 'Twitter', 'https://twitter.com/ThomCastermans' %>
+        <span class="description">Ik ben (bijna niet) actief op Twitter.</span>
+    </div>
 </div>

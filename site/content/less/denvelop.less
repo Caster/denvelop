@@ -21,10 +21,6 @@ html {
     line-height: @line-height;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: @font-family-head;
-}
-
 body {
     background: @color-main;
     height: 100%;
@@ -42,7 +38,12 @@ a {
     }
 }
 
+// general styling
+@import "font-styles.less";
 @import "header.less";
 @import "content.less";
 @import "footer.less";
 @import "utilities.less";
+
+// page-specific styling
+@import "external-account.less";

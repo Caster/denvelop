@@ -91,7 +91,7 @@ route '/img/**/*' do
     if item[:extension] == 'ipe'
         item.identifier.with_ext 'svg'
     else
-        item.identifier.with_ext item[:extension]
+        item.identifier.to_s
     end
 end
 
