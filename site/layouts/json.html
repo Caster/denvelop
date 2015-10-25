@@ -23,12 +23,18 @@ stripFilter = StripSpaceFilter.new({
         :config     => @config,
         :site       => @site
       })
+
+# find item language
+lang = item.identifier.without_ext.split('/')[2]
+
+# build page information
 page = {
     :id => @item[:id],
     :title => @item[:title_full],
     :url => @item[:url],
     :header => rpFilter.run(render('/header.html'), :type => :html),
-    :html => stripFilter.run(rpFilter.run(yield, :type => :html))
+    :html => stripFilter.run(rpFilter.run(yield, :type => :html)),
+    :lang => lang
 }
 
 %>

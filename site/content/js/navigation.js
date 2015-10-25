@@ -74,6 +74,7 @@ yuiCompress: !!bool true
             $('#header').children(':not(#logo)').remove();
             $('#header').append($(page.header).filter(':not(#logo)'));
             updateHeaderLinks();
+            $('html').attr('lang', page.lang);
 
             // swap curPage and trigger custom event
             $(window).trigger('denvelop-navigated', [curPage, page]);
