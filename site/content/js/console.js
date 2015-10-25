@@ -78,6 +78,18 @@ yuiCompress: !!bool true
     },
 
     /**
+     * Triggered for \c keypress events on the window. Should toggle the
+     * console status for the activation key.
+     */
+    onKeyDown = function(e) {
+        // handle tab here, before it changes the focus
+        // also respond to global toggle key events
+        if (e.which === 9 || e.which === cToggleKey) {
+            onKeyUp(e);
+        }
+    },
+
+    /**
      * Handler for key press events in the console input. Should only do
      * something if the console is enabled.
      */
@@ -102,6 +114,10 @@ yuiCompress: !!bool true
                 break;
             case 9: // tab
                 thisKeyIsTab = true;
+                if (e.type === 'keyup') {
+                    // already handled in keydown
+                    break;
+                }
                 var matches = completeCmd(cInput);
                 if (matches.length === 1) {
                     setInput((matches.prefix ? matches.prefix + ' ' : '') +
@@ -128,18 +144,6 @@ yuiCompress: !!bool true
         // always update cursor position, because we do not explicitly handle
         // home, end, arrow keys, et cetera
         updateCursorPosition();
-    },
-
-    /**
-     * Triggered for \c keypress events on the window. Should toggle the
-     * console status for the activation key.
-     */
-    onKeyDown = function(e) {
-        // handle tab here, before it changes the focus
-        // also respond to global toggle key events
-        if (e.which === 9 || e.which === cToggleKey) {
-            onKeyUp(e);
-        }
     },
 
     /**
