@@ -1,0 +1,53 @@
+@swatch-border-width: 2px;
+@swatch-size: (@spacing-md * 4);
+
+.theme {
+    position: relative;
+    display: block;
+    width: @swatch-size;
+    height: @swatch-size;
+    float: left;
+
+    &:not(:last-child) {
+        margin-right: @spacing-md;
+    }
+
+    & > span {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-color: transparent;
+
+        &.main {
+            border-width: @swatch-size @swatch-size 0 0;
+        }
+
+        &.main-dark {
+            border-width: 0 0 @swatch-size @swatch-size;
+        }
+
+        &.accent {
+            right: 0;
+            bottom: 0;
+            width: (@swatch-size / 6);
+            height: (@swatch-size / 6);
+            border-top-left-radius: 75%;
+        }
+    }
+
+    &.active {
+        width: (@swatch-size - @swatch-border-width * 2);
+        height: (@swatch-size - @swatch-border-width * 2);
+        border: @swatch-border-width solid @color-accent;
+
+        & > .main {
+            border-width: (@swatch-size - @swatch-border-width * 2) (@swatch-size - @swatch-border-width * 2) 0 0;
+        }
+
+        & > .main-dark {
+            border-width: 0 0 (@swatch-size - @swatch-border-width * 2) (@swatch-size - @swatch-border-width * 2);
+        }
+    }
+}

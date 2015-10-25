@@ -2,27 +2,40 @@
 id: home
 title: Home
 ---
-<div class="page">
-    <h1>Hallo!</h1>
-    <p>Welkom op Denvelop! Deze site is een speeltuin voor mij als ontwikkelaar. Het is een uithangbord van wat mogelijk is en wat ik leuk vind. Wil je <%= nav_link @items['/items/nl/over-mij.*'], 'meer van me weten' %>? Of <%= nav_link @items['/items/nl/over.*'], 'iets lezen over hoe deze site is gebouwd' %>? Rondkijken kan ook natuurlijk.</p>
-    <p>Oh ja. Er is nog een leuke verborgen feature op de site. Zoekt en gij zult vinden.</p>
-</div>
-<div class="page">
-    <h1>Waar vind je me?</h1>
-    <div class="external-account">
-        <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/' %>
-        <span class="description">Op mijn medewerkerspagina van de TU/e vind je gedetailleerde contactgegevens.</span>
+<div class="floaty-columns">
+    <div class="page">
+        <h1>Hallo!</h1>
+        <p>Welkom op Denvelop! Deze site is een speeltuin voor mij als ontwikkelaar. Het is een uithangbord van wat mogelijk is en wat ik leuk vind. Wil je <%= nav_link @items['/items/nl/over-mij.*'], 'meer van me weten' %>? Of <%= nav_link @items['/items/nl/over.*'], 'iets lezen over hoe deze site is gebouwd' %>? Rondkijken kan ook natuurlijk.</p>
+        <p>Oh ja. Er is nog een leuke verborgen feature op de site. Zoekt en gij zult vinden.</p>
     </div>
-    <div class="external-account">
-        <%= logo 'GitHub', 'https://github.com/Caster' %>
-        <span class="description">Op GitHub staat de code achter deze site, plus een aantal hobbyprojecten van me.</span>
+    <div class="page">
+        <h1>Waar vind je me?</h1>
+        <div class="external-account">
+            <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/' %>
+            <span class="description">Op mijn medewerkerspagina van de TU/e vind je gedetailleerde contactgegevens.</span>
+        </div>
+        <div class="external-account">
+            <%= logo 'GitHub', 'https://github.com/Caster' %>
+            <span class="description">Op GitHub staat de code achter deze site, plus een aantal hobbyprojecten van me.</span>
+        </div>
+        <div class="external-account">
+            <%= logo 'Facebook', 'https://www.facebook.com/thom.castermans' %>
+            <span class="description">Ik ben (niet echt) actief op Facebook.</span>
+        </div>
+        <div class="external-account">
+            <%= logo 'Twitter', 'https://twitter.com/ThomCastermans' %>
+            <span class="description">Ik ben (bijna niet) actief op Twitter.</span>
+        </div>
     </div>
-    <div class="external-account">
-        <%= logo 'Facebook', 'https://www.facebook.com/thom.castermans' %>
-        <span class="description">Ik ben (niet echt) actief op Facebook.</span>
-    </div>
-    <div class="external-account">
-        <%= logo 'Twitter', 'https://twitter.com/ThomCastermans' %>
-        <span class="description">Ik ben (bijna niet) actief op Twitter.</span>
+    <div class="page">
+        <h1>Ik wil andere kleuren</h1>
+        <p>Dat kan! Kies hieronder een thema met je favoriete kleuren. Staat je favoriete kleur er niet bij? Je kunt me <a href="https://github.com/Caster/denvelop/issues/new?title=[Theme%20request]%20color-you-want-here&body=Describe%20the%20colors%20you%20want%20here.%20I%20need%20a%20main%20color,%20darker%20variant%20and%20an%20accent%20color.">vragen om een thema toe te voegen</a>. Merk op dat ik geen zes tinten van dezelfde kleur toe wil voegen en het liefst kleuren uit de <a href="https://www.google.com/design/spec/style/color.html#color-color-palette">Material Design handleiding</a> wil gebruiken, maar ik zal alles in overweging nemen.</p>
+        <div class="themes">
+<% available_themes.each_with_index do |theme, i|  %>
+            <a href="javascript:void(0);" class="theme<%= (i === 0 ? ' active' : '') %>" data-theme-name="<%= theme %>">
+                <%= theme_swatch theme_colors(theme) %>
+            </a>
+<% end %>
+        </div>
     </div>
 </div>

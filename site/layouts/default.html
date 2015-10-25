@@ -8,7 +8,13 @@
 
         <title><%= @item[:title_full] %></title>
 
-        <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop.*'].path %>" title="denvelop-main">
+        <link href="<%= @items['/favicon.*'].path %>" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+        <meta name="denvelop-themes" content="<%= available_themes.join(',') %>">
+        <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop.*'].path %>" title="theme-default">
+<% available_themes.each_with_index do |theme, i|  %>
+<% if i === 0 %><% next %><% end %>
+        <link rel="stylesheet" type="text/css" href="<%= @items['/less/themes/' + theme + '.*'].path %>" title="theme-<%= theme %>">
+<% end %>
     </head>
     <body>
         <div id="header">
@@ -35,5 +41,6 @@
         <script type="text/javascript" src="<%= @items['/js/navigation.*'].path %>"></script>
         <script type="text/javascript" src="<%= @items['/js/navigation-animation.*'].path %>"></script>
         <script type="text/javascript" src="<%= @items['/js/console.*'].path %>"></script>
+        <script type="text/javascript" src="<%= @items['/js/theme-switch.*'].path %>"></script>
     </body>
 </html>
