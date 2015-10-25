@@ -3,6 +3,34 @@
     vertical-align: middle;
     width: 0.7em;
     .bg-color-inverted-secondary();
+
+    &.dynamic {
+        position: absolute;
+        left: (@spacing-md * 2); // padding-left of #footer and padding-right of #fake-input:before
+        width: auto;
+    }
+}
+
+#dummy { // style of element that is used to measure text width
+         // this should match the style of #fake-input
+    position: absolute;
+    visibility: hidden;
+    font-family: @font-family-mono;
+    white-space: nowrap;
+}
+
+#fake-input {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: @font-family-mono;
+    .text-color-inverted-secondary();
+    outline: none;
+
+    &:before {
+        content: ">";
+        padding-right: @spacing-md;
+        font-weight: bold;
+    }
 }
 
 #feedback {
@@ -25,10 +53,12 @@
 
         #cursor {
             .bg-color-inverted-main();
+            color: @color-main-dark;
+            font-family: @font-family-mono;
         }
 
-        #feedback,
-        #input {
+        #fake-input,
+        #feedback {
             .text-color-inverted-main();
         }
     }
@@ -39,17 +69,8 @@
 }
 
 #input {
-    display: inline-block;
-    vertical-align: middle;
-    font-family: @font-family-mono;
-    .text-color-inverted-secondary();
-    outline: none;
-
-    &:before {
-        content: ">";
-        padding-right: @spacing-md;
-        font-weight: bold;
-    }
+    position: absolute;
+    left: 9999px;
 }
 
 #push {

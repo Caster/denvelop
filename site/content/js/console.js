@@ -6,12 +6,16 @@ yuiCompress: !!bool true
     var $c = $('#footer'),
         $f = $c.find('#feedback'),
         $i = $c.find('#input'),
+        $fi = $c.find('#fake-input'),
+        $cursor = $c.find('#cursor'),
+        $dummy = $('<div />', {id: 'dummy'}).appendTo('body'),
         cEnabled = false,
         cInput = '',
         cLastKeyWasTab = false,
         cMaxLen = 40,
-        cToggleKey = '~',
+        cToggleKey = 192, // this is ~
         cmds = {}, // defined later
+        spaceWidth = 0, // defined later
 
     /**
      * Useful to create alias functions.
@@ -44,78 +48,97 @@ yuiCompress: !!bool true
     /**
      * Encode HTML entities in the given string, and make every space a
      * non-breaking one. Useful when showing user input to user.
+     *
+     * \param str The string to encode.
+     * \param plainStr Optional boolean, default \c false. When true, return
+     *            a string with plain characters instead of HTML escape
+     *            sequences. The string will be Unicode.
      */
-    encode = function(str) {
+    encode = function(str, plainStr) {
         if (typeof(str) !== 'string') {
             return '';
         }
+        if (typeof(plainStr) !== 'boolean') {
+            plainStr = false;
+        }
         return str.replace(/[\u00A0-\u9999<>\& ]/gim, function(i) {
-            if (i === ' ')  return '&nbsp;';
-                 return '&#' + i.charCodeAt(0) + ';';
+            if (i === ' ') {
+                return (plainStr ? '\u00A0' : '&nbsp;');
+            }
+            return (plainStr ? i.charAt(0) : '&#' + i.charCodeAt(0) + ';');
         });
+    },
+
+    /**
+     * Compute the width of the given string using a dummy element.
+     */
+    getTextWidth = function(str) {
+        // use a cached dummy
+        return $dummy.html(str).width();
     },
 
     /**
      * Handler for key press events in the console input. Should only do
      * something if the console is enabled.
      */
-    onConsoleKeyPress = function(e) {
-        if (!cEnabled) {
+    onKeyUp = function(e) {
+        if (cEnabled && e.which === cToggleKey) {
             return;
         }
-        // is this to blur the console? or some browser shortcut?
-        // we do allow some non-character keys, like backspace and enter
-        if (e.ctrlKey || (e.charCode === 0 &&
-                ['Backspace', 'Enter', 'Tab'].indexOf(e.key) < 0)) {
-            onKeyPress(e);
-            return;
-        }
-        // handle key
-        e.preventDefault();
-        e.stopPropagation();
-        var thisKeyIsTab = false;
-        switch (e.key) {
-            case 'Backspace':
-                cInput = cInput.substr(0, cInput.length - 1);
+        // see if we should handle this key press
+        var handled = true,
+            thisKeyIsTab = false;
+        switch (e.which) {
+            case cToggleKey: // is this to blur the console?
+                cEnabled = !cEnabled;
+                if (cEnabled) {
+                    $fi.focus();
+                } else {
+                    $i.blur();
+                }
                 break;
-            case 'Enter':
-                setFeedback(parseCmd(cInput));
-                cInput = '';
+            case 8: // backspace
+                // we only update the input after the switch, that is all
                 break;
-            case 'Tab':
+            case 9: // tab
                 thisKeyIsTab = true;
                 var matches = completeCmd(cInput);
                 if (matches.length === 1) {
-                    cInput = (matches.prefix ? matches.prefix + ' ' : '') +
-                        matches[0] + ' ';
+                    setInput((matches.prefix ? matches.prefix + ' ' : '') +
+                        matches[0] + ' ');
                 } else if (matches.length > 1 && cLastKeyWasTab) {
                     setFeedback(matches);
                 }
                 break;
+            case 13: // enter
+                setFeedback(parseCmd(cInput));
+                cmds.clear();
+                break;
             default:
-                if (cInput.length < cMaxLen) {
-                    cInput += e.key;
-                }
+                handled = false;
         }
-        cLastKeyWasTab = thisKeyIsTab;
-        // update text in input
-        updateInput();
+        // did we do anything? then mark event as handled
+        if (handled) {
+            e.preventDefault();
+            e.stopPropagation();
+            cLastKeyWasTab = thisKeyIsTab;
+            // update text in input
+            updateInput();
+        }
+        // always update cursor position, because we do not explicitly handle
+        // home, end, arrow keys, et cetera
+        updateCursorPosition();
     },
 
     /**
      * Triggered for \c keypress events on the window. Should toggle the
      * console status for the activation key.
      */
-    onKeyPress = function(e) {
-        if (e.key === cToggleKey && e.ctrlKey) {
-            e.preventDefault();
-            e.stopPropagation();
-            cEnabled = !cEnabled;
-            if (cEnabled) {
-                $i.focus();
-            } else {
-                $i.blur();
-            }
+    onKeyDown = function(e) {
+        // handle tab here, before it changes the focus
+        // also respond to global toggle key events
+        if (e.which === 9 || e.which === cToggleKey) {
+            onKeyUp(e);
         }
     },
 
@@ -159,11 +182,56 @@ yuiCompress: !!bool true
     },
 
     /**
+     * Set the contents of the input.
+     *
+     * Both the hidden and the fake one. Does need a call to updateInput to
+     * see the effect though.
+     */
+    setInput = function(str) {
+        cInput = str;
+        $i.val(str);
+    },
+
+    /**
+     * Update the position of the cursor so it matches the position of the
+     * cursor in the hidden input element.
+     */
+    updateCursorPosition = function() {
+        // position cursor absolute iff console is enabled
+        $cursor.toggleClass('dynamic', cEnabled);
+        if (cEnabled) {
+            // determine cursor position
+            var input = $i.get(0),
+                selS = input.selectionStart,
+                selE = input.selectionEnd,
+                lastChar = cInput.substr(selE, 1);
+            // selection is not supported, only cursor movement
+            if (selE !== selS) {
+                input.selectionStart = selE;
+            }
+            // get the length of the string up to the cursor
+            $cursor.css('margin-left', getTextWidth(encode('>' + cInput.substr(0, selE))));
+            if (lastChar === '') {
+                $cursor.html('&nbsp;').css('width', '.7em');
+            } else if (lastChar === ' ') {
+                $cursor.html('&nbsp;').css('width', spaceWidth);
+            } else {
+                $cursor.text(lastChar).css('width', '');
+            }
+        } else {
+            $cursor.html('&nbsp;').css({
+                marginLeft: '',
+                width: ''
+            });
+        }
+    },
+
+    /**
      * Update input text from the global \c cInput variable.
      */
     updateInput = function() {
-        $i.html(encode(cInput));
-    }
+        $fi.html(encode(cInput));
+    },
 
     /**
      * Command definitions. Hey. Cheater! Reading the source and all that.
@@ -173,6 +241,9 @@ yuiCompress: !!bool true
         'about': alias('help'),
         'about-me': s('This is desh, the Denvelop Shell, programmed by Thom.'),
         'cd': function(path) {
+            if (typeof(path) === 'undefined') {
+                path = '/';
+            }
             var options = completers.ls(path);
             if (options.length === 1 ||
                     (options.length > 1 && options[0] === path)) {
@@ -193,7 +264,7 @@ yuiCompress: !!bool true
             }
             return 'desh: Invalid language.';
         },
-        'clear': function() { cInput = ''; $i.text(''); },
+        'clear': function() { setInput(''); updateInput(); },
         'help': s('desh: This is a tiny console for geeks. No room for ' +
                     'further help, sorry.'),
         'ls': function(path) {
@@ -312,26 +383,42 @@ yuiCompress: !!bool true
      * Initialize console on document load.
      */
     $(function() {
+        // calculate the width of a non-breaking space
+        spaceWidth = getTextWidth('&nbsp;');
+
         if ($c.size() > 0) {
-            var initialText = $i.text(),
+            var initialText = $fi.text(),
                 feedbackUp = $f.text();
             // enable toggling the console
-            $(window).on('keypress', onKeyPress);
+            $(window).on('keydown', onKeyDown);
             // enable console writing
-            $i.on('keypress', onConsoleKeyPress);
+            $i.on('keyup', onKeyUp);
+            $i.on('input', function(e) {
+                // in case a user left with alt+tab
+                cEnabled = true;
+                $c.addClass('active');
+                // update input contents
+                cInput = $i.val();
+                updateInput();
+                updateCursorPosition();
+            });
             // update state if console is blurred/focused
-            $i.on('focus', function() {
+            $fi.on('focus', function() {
                 // in case focus happens outside our control (e.g. by clicking)
                 cEnabled = true;
                 $c.addClass('active');
                 updateInput();
                 setFeedback(feedbackUp);
-            }).on('blur', function() {
+                $i.focus();
+                updateCursorPosition();
+            });
+            $i.on('blur', function() {
                 cEnabled = false; // in case blur happens outside our control
                 $c.removeClass('active');
-                $i.text(initialText);
+                $fi.text(initialText);
                 feedbackUp = $f.text();
                 setFeedback('');
+                updateCursorPosition();
             });
         }
     });

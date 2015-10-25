@@ -9,7 +9,6 @@
         <title><%= @item[:title_full] %></title>
 
         <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop.*'].path %>" title="denvelop-main">
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Mono:400,700">
     </head>
     <body>
         <div id="header">
@@ -21,7 +20,8 @@
         </div>
         <div id="footer">
             <span id="feedback"></span>
-            <span id="input" tabindex="1">&copy; 2015 &ndash; Thom Castermans</span><span id="cursor">&nbsp;</span>
+            <input id="input" type="text" value="" />
+            <span id="fake-input" tabindex="1">&copy; 2015 &ndash; Thom Castermans</span><span id="cursor">&nbsp;</span>
         </div>
 
         <!-- load scripts at bottom of page for faster page load -->
