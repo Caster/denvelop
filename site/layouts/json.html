@@ -13,12 +13,22 @@ rpFilter = Nanoc::Filters::RelativizePaths.new({
         :config     => @config,
         :site       => @site
       })
+stripFilter = StripSpaceFilter.new({
+        :content    => nil,
+        :item       => @item,
+        :item_rep   => @item_rep,
+        :items      => @items,
+        :layout     => @layout,
+        :layouts    => @layouts,
+        :config     => @config,
+        :site       => @site
+      })
 page = {
     :id => @item[:id],
     :title => @item[:title_full],
     :url => @item[:url],
     :header => rpFilter.run(render('/header.html'), :type => :html),
-    :html => rpFilter.run(yield, :type => :html)
+    :html => stripFilter.run(rpFilter.run(yield, :type => :html))
 }
 
 %>

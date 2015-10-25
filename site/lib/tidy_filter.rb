@@ -6,10 +6,14 @@ class TidyFilter < Nanoc::Filter
 
     def run(content, params={})
         Open3.popen3("tidy" +
+                     " -ashtml" +
+                     " -c" +
+                     " -omit" +
                      " --quiet yes" +
                      " --char-encoding utf8" +
-                     " --indent auto" +
-                     " --indent-spaces 4" +
+                     " --hide-comments yes" +
+                     " --indent no" +
+                     " --output-bom no" +
                      " --tidy-mark no" +
                      " --vertical-space no" +
                      " --wrap 0" +

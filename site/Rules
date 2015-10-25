@@ -51,6 +51,7 @@ compile '/items/**/*' do
     layout '/default.html'
     filter :tidy
     filter :relativize_paths, :type => :html
+    filter :strip_space
 end
 
 compile '/items/**/*', :rep => :json do
