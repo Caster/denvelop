@@ -40,6 +40,10 @@ end
 # ---- COMPILE RULES -----------------------------------------------------------
 #
 
+compile '/favicon.*' do
+    nil
+end
+
 compile '/img/**/*' do
     if item[:extension] == 'ipe'
         filter :ipe
@@ -67,16 +71,24 @@ compile '/js/**/*' do
     end
 end
 
-compile '/less/**/*' do
+compile '/less/*' do
     if item.identifier.without_ext.split('/').last == 'denvelop'
         filter :less
-        if item[:yuiCompress]
+        if @config[:compress_css]
             filter :yui_compressor, :type => :css
         end
         filter :relativize_paths, :type => :css
     else
         nil
     end
+end
+
+compile '/less/themes/*' do
+    filter :less
+    if @config[:compress_css]
+        filter :yui_compressor, :type => :css
+    end
+    filter :relativize_paths, :type => :css
 end
 
 compile '/webfonts/**/*' do
@@ -86,6 +98,10 @@ end
 #
 # ---- ROUTING RULES -----------------------------------------------------------
 #
+
+route '/favicon.*' do
+    item.identifier.to_s
+end
 
 route '/img/**/*' do
     if item[:extension] == 'ipe'
@@ -107,12 +123,16 @@ route '/js/**/*' do
     item.identifier.with_ext 'js'
 end
 
-route '/less/**/*' do
+route '/less/*' do
     if item.identifier.without_ext.split('/').last == 'denvelop'
-        item.identifier.without_ext.gsub('less', 'css') + '.css'
+        item.identifier.with_ext('css').gsub('less', 'css')
     else
         nil
     end
+end
+
+route '/less/themes/*' do
+    item.identifier.with_ext('css').gsub('less', 'css')
 end
 
 route '/webfonts/**/*' do
