@@ -1,15 +1,20 @@
 @swatch-border-width: 2px;
 @swatch-size: (@spacing-md * 4);
 
+#themes {
+    padding-bottom: -@spacing-md;
+}
+
 .theme {
     position: relative;
     display: block;
     width: @swatch-size;
     height: @swatch-size;
     float: left;
+    outline: none;
 
     &:not(:last-child) {
-        margin-right: @spacing-md;
+        margin: 0 @spacing-md @spacing-md 0;
     }
 
     & > span {

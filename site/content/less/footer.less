@@ -46,14 +46,14 @@
     bottom: 0;
     left: 0;
     padding: @spacing-md;
-    background: @color-main-dark;
+    .bg-color(@color-main-dark);
 
     &.active {
         .text-color-inverted-main();
 
         #cursor {
             .bg-color-inverted-main();
-            color: @color-main-dark;
+            .font-color(@color-main-dark);
             font-family: @font-family-mono;
         }
 

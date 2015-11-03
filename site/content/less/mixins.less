@@ -1,6 +1,15 @@
+@text-color: @black;
+@text-color-i: @white;
+
+.bg-color(@c) when (iscolor(@c)) {
+    .bg-color(red(@c), green(@c), blue(@c), alpha(@c));
+}
+
 .bg-color(@r, @g, @b, @a: 1.0) {
     background: rgb(@r, @g, @b);
     background: rgba(@r, @g, @b, @a);
+    transition: background @theme-switch-duration, // do both background and color,
+                color @theme-switch-duration; // to not intervene with the font-color transitions
 }
 
 .bg-color-inverted-main() {
@@ -11,9 +20,15 @@
     .bg-color(255, 255, 255, 0.7);
 }
 
+.font-color(@c, @a: alpha(@c)) when (iscolor(@c)) {
+    .font-color(red(@c), green(@c), blue(@c), @a);
+}
+
 .font-color(@r, @g, @b, @a: 1.0) {
     color: rgb(@r, @g, @b);
     color: rgba(@r, @g, @b, @a);
+    transition: background @theme-switch-duration, // do both background and color,
+                color @theme-switch-duration; // to not intervene with the bg-color transitions
 }
 
 .font-size(@size: 1.0) {
@@ -24,27 +39,27 @@
 // alpha values for text taken from
 // http://www.google.com/design/spec/style/color.html#color-ui-color-application
 .text-color-main() {
-    .font-color(0, 0, 0, 0.87);
+    .font-color(@text-color, 0.87);
 }
 
 .text-color-secondary() {
-    .font-color(0, 0, 0, 0.54);
+    .font-color(@text-color, 0.54);
 }
 
 .text-color-disabled() {
-    .font-color(0, 0, 0, 0.26);
+    .font-color(@text-color, 0.26);
 }
 
 .text-color-inverted-main() {
-    .font-color(255, 255, 255, 1.0);
+    .font-color(@text-color-i, 1.0);
 }
 
 .text-color-inverted-secondary() {
-    .font-color(255, 255, 255, 0.7);
+    .font-color(@text-color-i, 0.7);
 }
 
 .text-color-inverted-disabled() {
-    .font-color(255, 255, 255, 0.3);
+    .font-color(@text-color-i, 0.3);
 }
 
 .shadow() {

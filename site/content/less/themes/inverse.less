@@ -1,0 +1,18 @@
+@import "../denvelop.less";
+
+@inverse: true; // mark this theme as having inverse colors
+
+// colors taken from http://www.google.com/design/spec/style/color.html#color-color-palette
+// not using the proposed main color with tint 500, darker tint 700 variant and accent color,
+// but inverse contrasting colors
+@color-main: #424242;      // grey 800
+@color-main-dark: #212121; // grey 900
+@color-accent: #FF5722;    // deep orange 500
+
+// further changes for color inversion
+@color-font-accent: #F5F5F5; // grey 100
+@text-color: @white;
+
+.page {
+    .bg-color(@color-main-dark);
+}

@@ -16,10 +16,18 @@ end
 
 def theme_colors(theme)
     colors = {}
-    IO.readlines("content/less/themes/#{theme}.less").each do |l|
+    IO.foreach("content/less/themes/#{theme}.less").with_index do |l, i|
+        # only read first 15 lines
+        break if i === 15
+        # find color definitions
         m = l.scan(/@color-([a-z\-]+)?: (#[0-9A-F]+);/i)
         if m.length === 1
             colors[m[0][0]] = m[0][1]
+        end
+        # check if this theme is inverse
+        m = l.scan(/@inverse: true;/i)
+        if m.length === 1
+            colors['inverse'] = true
         end
     end
     colors
@@ -33,8 +41,10 @@ def theme_swatch(theme_colors)
         'accent' => 'background-color'
     }
     theme_colors.each do |color, value|
-        swatch += '<span class="' + color + '" style="' + prop_map[color] +
-                ': ' + value + ';">&nbsp;</span>'
+        if prop_map.has_key? color
+            swatch += '<span class="' + color + '" style="' + prop_map[color] +
+                    ': ' + value + ';">&nbsp;</span>'
+        end
     end
     swatch
 end

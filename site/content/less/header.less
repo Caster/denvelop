@@ -4,7 +4,7 @@
 @menu-wide-width: (162 / 146) * (@line-height-px * 3 + @menu-padding-v * 6);
 
 #header {
-    background: @color-main-dark;
+    .bg-color(@color-main-dark);
 
     &:after {
         content: " ";
@@ -69,7 +69,7 @@
         bottom: 0;
         left: 0;
         z-index: 4;
-        background: @color-main-dark;
+        .bg-color(@color-main-dark);
     }
 }
 
