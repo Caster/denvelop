@@ -15,6 +15,15 @@ yuiCompress: !!bool true
             this.disabled = true;
         });
         $('link[rel$=stylesheet][title=theme-' + theme + ']').get(0).disabled = false;
+        // update image references
+        $('img.logo.invertible').each(function() {
+            var $img = $(this);
+            if (isInverse) {
+                $img.attr('src', $img.attr('src').replace(/\.svg$/, '-i.svg'));
+            } else {
+                $img.attr('src', $img.attr('src').replace(/-i\.svg$/, '.svg'));
+            }
+        });
     };
 
     /**
