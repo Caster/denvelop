@@ -5,10 +5,23 @@ yuiCompress: !!bool true
 
     var $head = $('head'),
         curTheme = null,
+        curThemeIsInverse = false,
+
+    updateImages = function() {
+        $('img.logo.invertible').each(function() {
+            var $img = $(this);
+            if (curThemeIsInverse) {
+                $img.attr('src', $img.attr('src').replace(/\.svg$/, '-i.svg'));
+            } else {
+                $img.attr('src', $img.attr('src').replace(/-i\.svg$/, '.svg'));
+            }
+        });
+    },
 
     switchTo = function(theme, isInverse) {
         // save theme name globally
         curTheme = theme;
+        curThemeIsInverse = isInverse;
         // update stylesheet disabledness
         var links = $('link[rel$=stylesheet]');
         links.each(function() {
@@ -16,14 +29,7 @@ yuiCompress: !!bool true
         });
         $('link[rel$=stylesheet][title=theme-' + theme + ']').get(0).disabled = false;
         // update image references
-        $('img.logo.invertible').each(function() {
-            var $img = $(this);
-            if (isInverse) {
-                $img.attr('src', $img.attr('src').replace(/\.svg$/, '-i.svg'));
-            } else {
-                $img.attr('src', $img.attr('src').replace(/-i\.svg$/, '.svg'));
-            }
-        });
+        updateImages();
     };
 
     /**
@@ -44,8 +50,9 @@ yuiCompress: !!bool true
                 $link.addClass('active').siblings().removeClass('active');
             }
         });
-        // set active theme on home page
+        // update pages when they are loaded
         $(window).on('denvelop-navigated', function(e, prevPage, curPage) {
+            // set active theme on home page
             if (curPage.id === 'home') {
                 $('#themes .theme').each(function() {
                     var $theme = $(this);
@@ -53,6 +60,8 @@ yuiCompress: !!bool true
                         $theme.data('theme-name') === curTheme);
                 });
             }
+            // possibly update images that need inversion
+            updateImages();
         });
     });
 
