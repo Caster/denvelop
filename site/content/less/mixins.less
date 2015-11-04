@@ -1,8 +1,8 @@
 @text-color: @black;
 @text-color-i: @white;
 
-.bg-color(@c) when (iscolor(@c)) {
-    .bg-color(red(@c), green(@c), blue(@c), alpha(@c));
+.bg-color(@c, @a: alpha(@c)) when (iscolor(@c)) {
+    .bg-color(red(@c), green(@c), blue(@c), @a);
 }
 
 .bg-color(@r, @g, @b, @a: 1.0) {
@@ -13,11 +13,11 @@
 }
 
 .bg-color-inverted-main() {
-    .bg-color(255, 255, 255, 1.0);
+    .bg-color(@text-color-i, 1.0);
 }
 
 .bg-color-inverted-secondary() {
-    .bg-color(255, 255, 255, 0.7);
+    .bg-color(@text-color-i, 0.7);
 }
 
 .font-color(@c, @a: alpha(@c)) when (iscolor(@c)) {
