@@ -115,7 +115,8 @@ yuiCompress: !!bool true
         updateImages();
         updateActiveTheme();
         // enable switching
-        $('body').on('click', '.theme', function() {
+        var $body = $('body');
+        $body.on('click', '.theme', function() {
             var $link = $(this);
             if (!$link.hasClass('active')) {
                 switchTo($link.data('theme-name'), $link.hasClass('theme-inverse'));
@@ -131,6 +132,9 @@ yuiCompress: !!bool true
             // possibly update images that need inversion
             updateImages();
         });
+        // after having set the theme and now that everything has settled,
+        // enable transitions when changing the theme from now on
+        setTimeout(function() { $body.addClass('loaded'); }, 1000);
     });
 
 }(jQuery, window, document));
