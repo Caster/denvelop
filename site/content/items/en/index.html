@@ -2,27 +2,41 @@
 id: home
 title: Home
 ---
-<div class="page">
-    <h1>Hey there!</h1>
-    <p>Welcome to Denvelop! This site is my playground as a developer. It is also a way of showing what is possible and what I like on websites. Do you want to know <%= nav_link @items['/items/en/whoami.*'], 'more about me' %>? Or are you interested in <%= nav_link @items['/items/en/about.*'], 'how this site was built' %>? Or are you just looking around?</p>
-    <p>Oh, by the way. There is a cute little feature hidden on this website. Kudos if you find it.</p>
-</div>
-<div class="page">
-    <h1>Finding me</h1>
-    <div class="external-account">
-        <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/' %>
-        <span class="description">You can find contact details on my staff page, at the TU/e website.</span>
+<div class="floaty-columns">
+    <div class="page">
+        <h1>Hey there!</h1>
+        <p>Welcome to Denvelop! This site is my playground as a developer. It is also a way of showing what is possible and what I like on websites. Do you want to know <%= nav_link @items['/items/en/whoami.*'], 'more about me' %>? Or are you interested in <%= nav_link @items['/items/en/about.*'], 'how this site was built' %>? Or are you just looking around?</p>
+        <p>Oh, by the way. There is a cute little feature hidden on this website. Kudos if you find it.</p>
     </div>
-    <div class="external-account">
-        <%= logo 'GitHub', 'https://github.com/Caster' %>
-        <span class="description">GitHub hosts the code behind this website, plus some hobby projects of mine.</span>
+    <div class="page">
+        <h1>Finding me</h1>
+        <div class="external-account">
+            <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/' %>
+            <span class="description">You can find contact details on my staff page, at the TU/e website.</span>
+        </div>
+        <div class="external-account">
+            <%= logo 'GitHub', 'https://github.com/Caster' %>
+            <span class="description">GitHub hosts the code behind this website, plus some hobby projects of mine.</span>
+        </div>
+        <div class="external-account">
+            <%= logo 'Facebook', 'https://www.facebook.com/thom.castermans' %>
+            <span class="description">I am (not really) active on Facebook.  I do respond to messages (yay for mail alerts).</span>
+        </div>
+        <div class="external-account">
+            <%= logo 'Twitter', 'https://twitter.com/ThomCastermans' %>
+            <span class="description">You can find me (seldomly) on Twitter. I do respond to messages (yay for mail alerts).</span>
+        </div>
     </div>
-    <div class="external-account">
-        <%= logo 'Facebook', 'https://www.facebook.com/thom.castermans' %>
-        <span class="description">I am (not really) active on Facebook.  I do respond to messages (yay for mail alerts).</span>
-    </div>
-    <div class="external-account">
-        <%= logo 'Twitter', 'https://twitter.com/ThomCastermans' %>
-        <span class="description">You can find me (seldomly) on Twitter. I do respond to messages (yay for mail alerts).</span>
+    <div class="page">
+        <h1>Other colours?</h1>
+        <p>You can have those if you want! Pick a theme below that has your favourite colours. If you cannot find your favourite colours, or have a suggestion for a nice new combination of colours, you can <a href="https://github.com/Caster/denvelop/issues/new?title=[Theme%20request]%20color-you-want-here&body=Describe%20the%20colors%20you%20want%20here.%20I%20need%20a%20main%20color,%20darker%20variant%20and%20an%20accent%20color.">ask me to add a theme</a>. Note that I do not want to add six shades of the same colour and ideally, I would like to stick to the colours listed in the <a href="https://www.google.com/design/spec/style/color.html#color-color-palette">Material Design guide</a>. Of course I will carefully consider every suggestion however.</p>
+        <div id="themes">
+<% available_themes.each_with_index do |theme, i|  %>
+<% th_cols = theme_colors(theme) %>
+            <a href="javascript:void(0);" class="theme<%= (th_cols['inverse'] ? ' theme-inverse' : '') %><%= (i === 0 ? ' active' : '') %>" data-theme-name="<%= theme %>">
+                <%= theme_swatch th_cols %>
+            </a>
+<% end %>
+        </div>
     </div>
 </div>
