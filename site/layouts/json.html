@@ -3,16 +3,18 @@
 require 'json'
 
 # based on the render function of Nanoc::Helpers::Rendering
-rpFilter = Nanoc::Filters::RelativizePaths.new({
-        :content    => nil,
-        :item       => @item,
-        :item_rep   => @item_rep,
-        :items      => @items,
-        :layout     => @layout,
-        :layouts    => @layouts,
-        :config     => @config,
-        :site       => @site
-      })
+if @config[:relativize_paths]
+    rpFilter = Nanoc::Filters::RelativizePaths.new({
+            :content    => nil,
+            :item       => @item,
+            :item_rep   => @item_rep,
+            :items      => @items,
+            :layout     => @layout,
+            :layouts    => @layouts,
+            :config     => @config,
+            :site       => @site
+        })
+end
 stripFilter = StripSpaceFilter.new({
         :content    => nil,
         :item       => @item,
@@ -28,12 +30,13 @@ stripFilter = StripSpaceFilter.new({
 lang = item.identifier.without_ext.split('/')[2]
 
 # build page information
+headerRaw = render('/header.html')
 page = {
     :id => @item[:id],
     :title => @item[:title_full],
     :url => @item[:url],
-    :header => rpFilter.run(render('/header.html'), :type => :html),
-    :html => stripFilter.run(rpFilter.run(yield, :type => :html)),
+    :header => (@config[:relativize_paths] ? rpFilter.run(headerRaw, :type => :html) : headerRaw),
+    :html => stripFilter.run(@config[:relativize_paths] ? rpFilter.run(yield, :type => :html) : yield),
     :lang => lang
 }
 

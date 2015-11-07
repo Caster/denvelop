@@ -54,14 +54,18 @@ compile '/items/**/*' do
     filter :erb
     layout '/default.html'
     filter :tidy
-    filter :relativize_paths, :type => :html
+    if @config[:relativize_paths]
+        filter :relativize_paths, :type => :html
+    end
     filter :strip_space
 end
 
 compile '/items/**/*', :rep => :json do
     filter :erb
     layout '/json.html'
-    filter :relativize_paths, :type => :css
+    if @config[:relativize_paths]
+        filter :relativize_paths, :type => :css
+    end
 end
 
 compile '/js/**/*' do
@@ -77,7 +81,9 @@ compile '/less/*' do
         if @config[:compress_css]
             filter :yui_compressor, :type => :css
         end
-        filter :relativize_paths, :type => :css
+        if @config[:relativize_paths]
+            filter :relativize_paths, :type => :css
+        end
     else
         nil
     end
@@ -88,7 +94,9 @@ compile '/less/themes/*' do
     if @config[:compress_css]
         filter :yui_compressor, :type => :css
     end
-    filter :relativize_paths, :type => :css
+    if @config[:relativize_paths]
+        filter :relativize_paths, :type => :css
+    end
 end
 
 compile '/webfonts/**/*' do
