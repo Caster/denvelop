@@ -144,7 +144,7 @@ yuiCompress: !!bool true
             $window.on('denvelop-theme-switch', function(e, themeName) {
                 var $link = $('link[rel$=stylesheet][title="theme-' + themeName + '"]');
                 if ($link.size() > 0) {
-                    switchTo($link.attr('title').match(/-(\w+)$/)[1], $link.data('inverse') === '1');
+                    switchTo($link.attr('title').match(/-(\w+)$/)[1], ($link.data('inverse') === 1));
                 } else {
                     // we did not switch
                     setTimeout(function() {
