@@ -33,7 +33,7 @@ yuiCompress: !!bool true
         updateImages();
         // notify page of theme change
         window.setTimeout(function() {
-            $(window).trigger('denvelop-theme-switched', [true]);
+            $(window).trigger('denvelop-theme-switched', [true, curTheme]);
         }, 400); // at this point, theme switching more or less completed
     },
 
@@ -148,7 +148,7 @@ yuiCompress: !!bool true
                 } else {
                     // we did not switch
                     setTimeout(function() {
-                        $window.trigger('denvelop-theme-switched', [false]);
+                        $window.trigger('denvelop-theme-switched', [false, curTheme]);
                     });
                 }
             });

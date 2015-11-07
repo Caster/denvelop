@@ -293,9 +293,13 @@ yuiCompress: !!bool true
             return items;
         },
         'theme': function(name) {
-            $(window).one('denvelop-theme-switched', function(e, switched) {
+            $(window).one('denvelop-theme-switched', function(e, switched, newTheme) {
                 if (!switched) {
-                    setFeedback('desh: Invalid theme name.');
+                    if (typeof(name) === 'undefined') {
+                        setFeedback('desh: Current theme is "' + newTheme + '".');
+                    } else {
+                        setFeedback('desh: Invalid theme name.');
+                    }
                 }
             });
             $(window).trigger('denvelop-theme-switch', [name]);
