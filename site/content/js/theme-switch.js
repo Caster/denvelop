@@ -31,6 +31,10 @@ yuiCompress: !!bool true
         // do actual switch
         updateStylesheets();
         updateImages();
+        // notify page of theme change
+        window.setTimeout(function() {
+            $(window).trigger('denvelop-theme-switched', [true]);
+        }, 400); // at this point, theme switching more or less completed
     },
 
     /**
@@ -115,7 +119,8 @@ yuiCompress: !!bool true
         updateImages();
         updateActiveTheme();
         // enable switching
-        var $body = $('body');
+        var $body = $('body'),
+            $window = $(window);
         $body.on('click', '.theme', function() {
             var $link = $(this);
             if (!$link.hasClass('active')) {
@@ -124,7 +129,7 @@ yuiCompress: !!bool true
             }
         });
         // update pages when they are loaded
-        $(window).on('denvelop-navigated', function(e, prevPage, curPage) {
+        $window.on('denvelop-navigated', function(e, prevPage, curPage) {
             // set active theme on home page
             if (curPage.id === 'home') {
                 updateActiveTheme();
@@ -134,7 +139,20 @@ yuiCompress: !!bool true
         });
         // after having set the theme and now that everything has settled,
         // enable transitions when changing the theme from now on
-        setTimeout(function() { $body.addClass('loaded'); }, 1000);
+        setTimeout(function() {
+            $body.addClass('loaded');
+            $window.on('denvelop-theme-switch', function(e, themeName) {
+                var $link = $('link[rel$=stylesheet][title="theme-' + themeName + '"]');
+                if ($link.size() > 0) {
+                    switchTo($link.attr('title').match(/-(\w+)$/)[1], $link.data('inverse') === '1');
+                } else {
+                    // we did not switch
+                    setTimeout(function() {
+                        $window.trigger('denvelop-theme-switched', [false]);
+                    });
+                }
+            });
+        }, 1000);
     });
 
 }(jQuery, window, document));

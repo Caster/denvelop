@@ -291,6 +291,14 @@ yuiCompress: !!bool true
                 return 'desh: Invalid path.';
             }
             return items;
+        },
+        'theme': function(name) {
+            $(window).one('denvelop-theme-switched', function(e, switched) {
+                if (!switched) {
+                    setFeedback('desh: Invalid theme name.');
+                }
+            });
+            $(window).trigger('denvelop-theme-switch', [name]);
         }
     },
 
@@ -318,6 +326,13 @@ yuiCompress: !!bool true
                     }
                     return c;
                 });
+        },
+        'theme': function(name) {
+            var themeNames = [];
+            $('link[rel$=stylesheet]').each(function() {
+                themeNames.push($(this).attr('title').match(/-(\w+)$/)[1]);
+            });
+            return helpers.filterPrefixed(name, themeNames);
         }
     },
 

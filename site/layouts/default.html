@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop.*'].path %>" title="theme-default">
 <% available_themes.each_with_index do |theme, i|  %>
 <% if i === 0 %><% next %><% end %>
-        <link rel="alternate stylesheet" type="text/css" href="<%= @items['/less/themes/' + theme + '.*'].path %>" title="theme-<%= theme %>">
+        <link rel="alternate stylesheet" type="text/css" href="<%= @items['/less/themes/' + theme + '.*'].path %>" title="theme-<%= theme %>" data-inverse="<% (theme_colors(theme)['inverse'] ? '1' : '0') %>">
 <% end %>
     </head>
     <body>
