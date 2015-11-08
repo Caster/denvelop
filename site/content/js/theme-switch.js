@@ -145,6 +145,7 @@ yuiCompress: !!bool true
                 var $link = $('link[rel$=stylesheet][title="theme-' + themeName + '"]');
                 if ($link.size() > 0) {
                     switchTo($link.attr('title').match(/-(\w+)$/)[1], ($link.data('inverse') === 1));
+                    updateActiveTheme();
                 } else {
                     // we did not switch
                     setTimeout(function() {
