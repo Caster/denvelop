@@ -251,7 +251,7 @@ yuiCompress: !!bool true
             var options = completers.ls(path);
             if (options.length === 1 ||
                     (options.length > 1 && (options[0] === path ||
-                    options[0] === path + '.'))) {
+                    options[0] === path + '.' || options[0] === path + '/.'))) {
                 var url = helpers.dirResolve(location.pathname, options[0]);
                 $('#header a, .nav-link').
                     filter('[data-url="' + url + '"]').
@@ -329,6 +329,10 @@ yuiCompress: !!bool true
             var dirName = path.split('/'),
                 baseName = dirName.pop();
             if (!baseName) baseName = '';
+            if (baseName === '.' || baseName === '..') {
+                dirName.push(baseName);
+                baseName = '';
+            }
             dirName = dirName.join('/');
             if (absPath && dirName === '') {
                 dirName = '/';
@@ -369,11 +373,16 @@ yuiCompress: !!bool true
             return diff.join('/');
         },
         dirResolve: function(dir, subDir) {
+            if (dir.charAt(0) !== '/') {
+                console.error('dirResolve can only resolve paths from absolute paths.');
+            }
             var d = dir.split('/'),
                 lastSlash = (d[d.length - 1] === '');
             if (lastSlash) {
                 d.pop();
             }
+            // remove first empty component, since we asserted that dir is absolute
+            d.splice(0, 1);
 
             subDir = (subDir === '' ? [] : subDir.split('/'));
             for (var i = 0; i < subDir.length; i++) {
@@ -396,7 +405,11 @@ yuiCompress: !!bool true
             if (lastSlash) {
                 d.push('');
             }
-            return d.join('/');
+            var result = d.join('/');
+            if (result.charAt(0) !== '/') {
+                result = '/' + result;
+            }
+            return result;
         },
         filterPrefixed: function(key, haystack) {
             var matches = [];
