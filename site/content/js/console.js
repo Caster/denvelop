@@ -250,7 +250,8 @@ yuiCompress: !!bool true
             }
             var options = completers.ls(path);
             if (options.length === 1 ||
-                    (options.length > 1 && options[0] === path)) {
+                    (options.length > 1 && (options[0] === path ||
+                    options[0] === path + '.'))) {
                 var url = helpers.dirResolve(location.pathname, options[0]);
                 $('#header a, .nav-link').
                     filter('[data-url="' + url + '"]').
@@ -319,14 +320,23 @@ yuiCompress: !!bool true
         },
         'ls': function(path) {
             if (typeof(path) !== 'string') return [];
+            // absolute path?
+            var absPath = false;
+            if (path.charAt(0) === '/') {
+                path = path.substr(1);
+                absPath = true;
+            }
             var dirName = path.split('/'),
                 baseName = dirName.pop();
             if (!baseName) baseName = '';
             dirName = dirName.join('/');
+            if (absPath && dirName === '') {
+                dirName = '/';
+            }
             return helpers.filterPrefixed(baseName, cmds.ls(dirName)).
                 map(function(c) {
                     if (dirName !== '') {
-                        return dirName + '/' + c;
+                        return dirName + (dirName === '/' ? '' : '/') + c;
                     }
                     return c;
                 });
