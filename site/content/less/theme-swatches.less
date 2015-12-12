@@ -6,6 +6,7 @@
 }
 
 .theme {
+    box-sizing: border-box;
     position: relative;
     display: block;
     width: @swatch-size;
@@ -44,8 +45,6 @@
     }
 
     &.active {
-        width: (@swatch-size - @swatch-border-width * 2);
-        height: (@swatch-size - @swatch-border-width * 2);
         border: @swatch-border-width solid @color-accent;
 
         & > .main {
