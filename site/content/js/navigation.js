@@ -12,12 +12,23 @@ yuiCompress: !!bool true
          * element (`a`). It will try to use AJAX and history magic to keep page
          * loading asynchronous. If it succeeds, it wil fire an event that may
          * trigger some fancy animations, who knows.
+         *
+         * \param href The path to navigate to. Defaults to \c href attribute of
+         *            \c this (so this function can be applied on \c a elements).
+         * \param itemId The ID of the page to navigate to. Defaults to
+         *            \c data-id of \c this.
          */
-        navigate = function() {
+        navigate = function(href, itemId) {
             if (historySupport) {
-                $(window).trigger('denvelop-navigating', [curPage, $(this).attr('data-id')]);
+                if (typeof(href) !== 'string') {
+                    href = $(this).attr('href');
+                }
+                if (typeof(itemId) !== 'string') {
+                    itemId = $(this).data('id');
+                }
+                $(window).trigger('denvelop-navigating', [curPage, itemId]);
                 $.ajax({
-                    url: $(this).attr('href') + 'page.json',
+                    url: href + 'page.json',
                     success: updatePage,
                     dataType: 'json',
                     cache: false
@@ -176,6 +187,7 @@ yuiCompress: !!bool true
 
     $(function() {
         if (historySupport) {
+            var $window = $(window);
             // save the current state
             curPage = {
                 id: $('.nav-icon.active').attr('data-id'),
@@ -187,9 +199,13 @@ yuiCompress: !!bool true
             window.history.replaceState(curPage, document.title, '');
             // process all navigational links to use AJAX
             updateHeaderLinks();
+            // listen for custom events
+            $window.on('denvelop-navigate', function(event, href, itemId) {
+                navigate(href, itemId);
+            });
             // attach an event handler for when the user uses 'prev' and 'next'
-            $(window).on('popstate', function(event) {
-                $(window).trigger('denvelop-navigating', [curPage, event.originalEvent.state.id]);
+            $window.on('popstate', function(event) {
+                $window.trigger('denvelop-navigating', [curPage, event.originalEvent.state.id]);
                 updatePage(event.originalEvent.state, false);
             });
         }

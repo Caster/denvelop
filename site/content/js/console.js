@@ -1,5 +1,5 @@
 ---
-yuiCompress: !!bool true
+yuiCompress: !!bool false
 ---
 (function($, window, document) {
 
@@ -16,6 +16,8 @@ yuiCompress: !!bool true
         cToggleKey = 192, // this is ~
         cmds = {}, // defined later
         spaceWidth = 0, // defined later
+        siteMap = <%= get_sitemap %>, // used for completion (ls/cd)
+        siteMapIds = <%= get_sitemap_ids %>, // used for navigation
 
     /**
      * Useful to create alias functions.
@@ -248,49 +250,48 @@ yuiCompress: !!bool true
             if (typeof(path) === 'undefined') {
                 path = '/';
             }
-            var options = completers.ls(path);
-            if (options.length === 1 ||
-                    (options.length > 1 && (options[0] === path ||
-                    options[0] === path + '.' || options[0] === path + '/.'))) {
-                var url = helpers.dirResolve(location.pathname, options[0]);
-                $('#header a, .nav-link').
-                    filter('[data-url="' + url + '"]').
-                    click();
-                return '';
+            // make path absolute
+            path = helpers.dirResolve(location.pathname, path);
+            // if the path can be found in the sitemap, go there, otherwise error
+            if (siteMap.indexOf(path) === -1) {
+                return 'desh: Invalid path.';
             }
-            return 'desh: Invalid path.';
-        },
-        'cd-lang': function(lang) {
-            var options = completers['cd-lang'](lang);
-            if (options.length === 1 ||
-                    (options.length > 1 && options[0] === lang)) {
-                $('#lang-select a[lang="' + options[0] + '"]').click();
-                return '';
-            }
-            return 'desh: Invalid language.';
+            // navigate to page
+            $(window).trigger('denvelop-navigate', [path, siteMapIds[path]]);
         },
         'clear': function() { setInput(''); updateInput(); },
         'help': s('desh: This is a tiny console for geeks. No room for ' +
                     'further help, sorry.'),
         'ls': function(path) {
             var cwd = location.pathname,
-                items = [];
+                items = [], i, l, item, itemIndex;
             if (typeof(path) === 'string') {
                 cwd = helpers.dirResolve(cwd, path);
                 if (cwd === null) {
                     return 'desh: Invalid path.';
                 }
             }
-            $('#nav li > *').each(function(i, e) {
-                var item = helpers.dirDiff(cwd, $(e).data('url'));
-                if (item.indexOf('../') === -1) {
-                    items.push(item);
+            // consider all items the user may mean
+            for (i = 0, l = siteMap.length; i < l; ++i) {
+                if (siteMap[i].startsWith(cwd)) {
+                    item = siteMap[i].substr(cwd.length);
+                    // the item itself is referred to with a single dot
+                    if (item === '') {
+                        item = '.';
+                    }
+                    // we do not list directories recursively
+                    itemIndex = item.indexOf('/');
+                    if (itemIndex < 0 || itemIndex === item.length - 1) {
+                        items.push(item);
+                    }
                 }
-            });
-            items.sort();
-            if (items[0] !== '.') {
-                return 'desh: Invalid path.';
             }
+            // if may be possible to move up a directory
+            if (cwd !== '/' && items.indexOf('.') !== -1) {
+                items.push('..');
+            }
+            // present items in sorted order
+            items.sort();
             return items;
         },
         'theme': function(name) {
@@ -312,12 +313,6 @@ yuiCompress: !!bool true
      */
     completers = {
         'cd': alias('ls', 'completers'),
-        'cd-lang': function(lang) {
-            var options = [];
-            $('#lang-select a').each(function() {
-                options.push($(this).attr('lang')); });
-            return helpers.filterPrefixed(lang, options);
-        },
         'ls': function(path) {
             if (typeof(path) !== 'string') return [];
             // absolute path?
@@ -326,6 +321,7 @@ yuiCompress: !!bool true
                 path = path.substr(1);
                 absPath = true;
             }
+            // split in directory and basename
             var dirName = path.split('/'),
                 baseName = dirName.pop();
             if (!baseName) baseName = '';
@@ -337,7 +333,12 @@ yuiCompress: !!bool true
             if (absPath && dirName === '') {
                 dirName = '/';
             }
-            return helpers.filterPrefixed(baseName, cmds.ls(dirName)).
+            // use this to call ls and filter the results
+            var lsResult = cmds.ls(dirName);
+            if (typeof(lsResult) === 'string') {
+                return lsResult; // error message
+            }
+            return helpers.filterPrefixed(baseName, lsResult).
                 map(function(c) {
                     if (dirName !== '') {
                         return dirName + (dirName === '/' ? '' : '/') + c;
