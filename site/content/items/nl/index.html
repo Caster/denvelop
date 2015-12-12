@@ -33,7 +33,7 @@ title: Home
         <div id="themes">
 <% available_themes.each_with_index do |theme, i|  %>
 <% th_cols = theme_colors(theme) %>
-            <a href="javascript:void(0);" class="theme<%= (th_cols['inverse'] ? ' theme-inverse' : '') %><%= (i === 0 ? ' active' : '') %>" data-theme-name="<%= theme %>">
+            <a href="javascript:void(0);" class="theme<%= (th_cols['inverse'] ? ' theme-inverse' : '') %><%= (i === 0 ? ' active' : '') %>" data-theme-name="<%= theme %>" style="background: <%= th_cols['main-dark'] %>;">
                 <%= theme_swatch th_cols %>
             </a>
 <% end %>

@@ -37,7 +37,6 @@ def theme_swatch(theme_colors)
     swatch = ''
     prop_map = {
         'main' => 'border-top-color',
-        'main-dark' => 'border-bottom-color',
         'accent' => 'background-color'
     }
     theme_colors.each do |color, value|
