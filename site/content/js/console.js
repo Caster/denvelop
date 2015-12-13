@@ -152,7 +152,7 @@ yuiCompress: !!bool false
      * See if we know the given command and act on it.
      */
     parseCmd = function(cmd) {
-        cmd = cmd.trim().toLowerCase().split(/\s+/g);
+        cmd = cmd.trim().split(/\s+/g);
         if (cmd.length > 0) {
             if (cmds.hasOwnProperty(cmd[0])) {
                 var cmdNm = cmd.splice(0, 1);
@@ -183,7 +183,7 @@ yuiCompress: !!bool false
                 str = '';
             }
         }
-        $f.html(encode(str));
+        $f.html(encode(str.toLowerCase()));
         $c.toggleClass('tall', (str != ''));
     },
 
@@ -194,8 +194,8 @@ yuiCompress: !!bool false
      * see the effect though.
      */
     setInput = function(str) {
-        cInput = str;
-        $i.val(str);
+        cInput = str.toLowerCase();
+        $i.val(cInput);
     },
 
     /**
@@ -445,7 +445,7 @@ yuiCompress: !!bool false
                 cEnabled = true;
                 $c.addClass('active');
                 // update input contents
-                cInput = $i.val();
+                cInput = $i.val().toLowerCase();
                 updateInput();
                 updateCursorPosition();
             });
