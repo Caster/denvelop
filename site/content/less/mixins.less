@@ -8,6 +8,9 @@
 .bg-color(@r, @g, @b, @a: 1.0) {
     background: rgb(@r, @g, @b);
     background: rgba(@r, @g, @b, @a);
+
+    // when JS is enabled (indicated by `.loaded` body), enable transitions
+    // that are used when the site theme is changed
     body.loaded & {
         transition: background @theme-switch-duration, // do both background and color,
                     color @theme-switch-duration; // to not intervene with the font-color transitions
@@ -29,6 +32,9 @@
 .font-color(@r, @g, @b, @a: 1.0) {
     color: rgb(@r, @g, @b);
     color: rgba(@r, @g, @b, @a);
+
+    // when JS is enabled (indicated by `.loaded` body), enable transitions
+    // that are used when the site theme is changed
     body.loaded & {
         transition: background @theme-switch-duration, // do both background and color,
                     color @theme-switch-duration; // to not intervene with the bg-color transitions

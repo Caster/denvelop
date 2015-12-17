@@ -21,6 +21,13 @@ body {
     .bg-color(@color-main);
     height: 100%;
     overflow-x: hidden; // to prevent scrollbar from occuring on tall pages
+
+    // when JS is enabled (indicated by `.loaded` body), enable transitions
+    // that are used when the site theme is changed
+    &.loaded {
+        transition: background @theme-switch-duration, // do both background and color,
+                    color @theme-switch-duration; // to not intervene with the bg-color transitions
+    }
 }
 
 // general styling
