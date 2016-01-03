@@ -22,9 +22,12 @@ yuiCompress: !!bool false
     /**
      * Useful to create alias functions.
      */
-    alias = function(cmd, type) {
+    alias = function(cmd, type, extraArguments) {
         return function() {
             if (type === 'completers') {
+                if (typeof(extraArguments) === 'object') {
+                    Array.prototype.push.call(arguments, extraArguments);
+                }
                 return completers[cmd].apply(this, arguments);
             }
             return cmds[cmd].apply(this, arguments);
