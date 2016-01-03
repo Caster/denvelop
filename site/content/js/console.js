@@ -44,6 +44,7 @@ yuiCompress: !!bool false
         } else if (completers.hasOwnProperty(cmdSplit[0])) {
             cmd = cmdSplit.splice(0, 1);
             var matches = completers[cmd].apply(this, cmdSplit);
+            matches.largestCommonStart = helpers.largestCommon(matches);
             matches.prefix = cmd;
             return matches;
         }
@@ -127,8 +128,16 @@ yuiCompress: !!bool false
                 if (matches.length === 1) {
                     setInput((matches.prefix ? matches.prefix + ' ' : '') +
                         matches[0] + (matches.noSpace ? '' : ' '));
-                } else if (matches.length > 1 && cLastKeyWasTab) {
-                    setFeedback(matches);
+                } else if (matches.length > 1) {
+                    // update feedback after twice tab, but...
+                    if (cLastKeyWasTab) {
+                        setFeedback(matches);
+                    } else {
+                        // ...update input immediately
+                        // (but not when updating the feedback)
+                        setInput((matches.prefix ? matches.prefix + ' ' : '') +
+                            matches.largestCommonStart);
+                    }
                 }
                 break;
             case 13: // enter
@@ -425,6 +434,32 @@ yuiCompress: !!bool false
                 }
             }
             return matches;
+        },
+        /**
+         * Return the longest substring that all given strings start with.
+         *
+         * This can of course be the empty string, if all given strings have
+         * different starting characters. This is also returned if the given
+         * array is empty.
+         *
+         * \param strings Array of strings.
+         */
+        largestCommon: function(strings) {
+            if (strings.length === 0) {
+                return '';
+            }
+            var result = '', c, i, strL = strings[0].length, j,
+                l = strings.length;
+            for (i = 0; i < strL; ++i) {
+                c = strings[0].charAt(i);
+                for (j = 1; j < l; ++j) {
+                    if (strings[j].charAt(i) !== c) {
+                        return result;
+                    }
+                }
+                result += c;
+            }
+            return result;
         },
         trimSlashes: function(str) {
             return str.replace(/\/^|\/$/g, '');
