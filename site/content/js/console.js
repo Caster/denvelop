@@ -123,7 +123,7 @@ yuiCompress: !!bool false
                 var matches = completeCmd(cInput);
                 if (matches.length === 1) {
                     setInput((matches.prefix ? matches.prefix + ' ' : '') +
-                        matches[0] + ' ');
+                        matches[0] + (matches.noSpace ? '' : ' '));
                 } else if (matches.length > 1 && cLastKeyWasTab) {
                     setFeedback(matches);
                 }
@@ -338,13 +338,15 @@ yuiCompress: !!bool false
             if (typeof(lsResult) === 'string') {
                 return lsResult; // error message
             }
-            return helpers.filterPrefixed(baseName, lsResult).
+            lsResult = helpers.filterPrefixed(baseName, lsResult).
                 map(function(c) {
                     if (dirName !== '') {
                         return dirName + (dirName === '/' ? '' : '/') + c;
                     }
                     return c;
                 });
+            lsResult.noSpace = true;
+            return lsResult;
         },
         'theme': function(name) {
             var themeNames = [];
