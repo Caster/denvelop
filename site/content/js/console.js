@@ -330,8 +330,8 @@ yuiCompress: !!bool false
                 baseName = '';
             }
             dirName = dirName.join('/');
-            if (absPath && dirName === '') {
-                dirName = '/';
+            if (absPath) {
+                dirName = '/' + dirName;
             }
             // use this to call ls and filter the results
             var lsResult = cmds.ls(dirName);
