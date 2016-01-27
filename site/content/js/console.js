@@ -352,7 +352,9 @@ yuiCompress: !!bool false
             if (typeof(lsResult) === 'string') {
                 return lsResult; // error message
             }
-            lsResult = helpers.filterPrefixed(baseName, lsResult).
+            lsResult = helpers.filterDots(
+                    helpers.filterPrefixed(baseName, lsResult)
+                ).
                 map(function(c) {
                     if (dirName !== '') {
                         return dirName + (dirName === '/' ? '' : '/') + c;
@@ -360,6 +362,9 @@ yuiCompress: !!bool false
                     return c;
                 });
             lsResult.noSpace = true;
+            if (lsResult.length === 1) {
+                lsResult.noSpace = (helpers.filterDots(cmds.ls(lsResult[0])).length > 0);
+            }
             return lsResult;
         },
         'theme': function(name) {
@@ -427,6 +432,11 @@ yuiCompress: !!bool false
                 result = '/' + result;
             }
             return result;
+        },
+        filterDots: function(array) {
+            return array.filter(function(c) {
+                    return (c !== '.' && c !== '..');
+            });
         },
         filterPrefixed: function(key, haystack) {
             var matches = [];
