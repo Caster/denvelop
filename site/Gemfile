@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'nanoc', '~> 4.0.0rc2'
+gem 'nanoc', '~> 4'
 
 gem 'less', '~> 2.6.0'
 gem 'nokogiri', '~> 1.6.6.2'

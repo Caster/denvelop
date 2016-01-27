@@ -113,7 +113,7 @@ end
 
 route '/img/**/*' do
     if item[:extension] == 'ipe'
-        item.identifier.with_ext 'svg'
+        item.identifier.without_exts + '.svg'
     else
         item.identifier.to_s
     end
@@ -128,19 +128,19 @@ route '/items/**/*', :rep => :json do
 end
 
 route '/js/**/*' do
-    item.identifier.with_ext 'js'
+    item.identifier.without_exts + '.js'
 end
 
 route '/less/*' do
     if item.identifier.without_ext.split('/').last == 'denvelop'
-        item.identifier.with_ext('css').gsub('less', 'css')
+        (item.identifier.without_exts + '.css').gsub('less', 'css')
     else
         nil
     end
 end
 
 route '/less/themes/*' do
-    item.identifier.with_ext('css').gsub('less', 'css')
+    (item.identifier.without_exts + '.css').gsub('less', 'css')
 end
 
 route '/webfonts/**/*' do
