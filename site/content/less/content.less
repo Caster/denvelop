@@ -3,6 +3,14 @@
     padding: 0;
 }
 
+.floaty-columns:after {
+    // clearfix
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
 .page {
     margin: 0 0 @spacing-lg;
     padding: @spacing-md;

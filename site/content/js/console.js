@@ -3,7 +3,8 @@ yuiCompress: !!bool false
 ---
 (function($, window, document) {
 
-    var $c = $('#footer'),
+    var $b = $(document.body),
+        $c = $('#footer'),
         $f = $c.find('#feedback'),
         $i = $c.find('#input'),
         $fi = $c.find('#fake-input'),
@@ -196,6 +197,7 @@ yuiCompress: !!bool false
             }
         }
         $f.html(encode(str.toLowerCase()));
+        $b.toggleClass('has-tall-footer', (str != ''));
         $c.toggleClass('tall', (str != ''));
     },
 
