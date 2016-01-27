@@ -1,0 +1,61 @@
+.timeline {
+    & > .entry {
+        position: relative;
+        padding: @spacing-sm 0 @spacing-sm @spacing-lg;
+        border-left: 2px solid @color-accent;
+
+        // icon(s) for every entry
+        & > .from-icon,
+        & > .upto-icon {
+            position: absolute;
+            left: (-(@icon-size + 2px) / 2 - 2px);
+            width: @icon-size;
+            height: @icon-size;
+            .bg-color(@white);
+            border: 2px solid @color-accent;
+            border-radius: (@icon-size / 2);
+
+            & when (@inverse = true) {
+                .bg-color(@color-main-dark);
+            }
+        }
+
+        & > .from-icon {
+            top: @spacing-sm;
+        }
+
+        & > .upto-icon {
+            bottom: @spacing-sm;
+        }
+
+        // descriptions
+        .from,
+        .where,
+        .upto {
+            display: block;
+            height: (@icon-size + 4px);
+            line-height: (@icon-size + 4px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .where {
+            font-weight: bold;
+        }
+
+        .what {
+            display: block;
+            margin: @spacing-sm 0;
+            font-style: italic;
+        }
+    }
+
+    & > .entry + .entry {
+        padding-top: @spacing-md;
+
+        & > .from-icon {
+            top: @spacing-md;
+        }
+    }
+}

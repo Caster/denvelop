@@ -10,6 +10,7 @@
 
         <link href="<%= @items['/favicon.*'].path %>" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         <meta name="denvelop-themes" content="<%= available_themes.join(',') %>">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" title="material-design-icons">
         <link rel="stylesheet" type="text/css" href="<%= @items['/less/denvelop.*'].path %>" title="theme-default">
 <% available_themes.each_with_index do |theme, i|  %>
 <% if i === 0 %><% next %><% end %>

@@ -99,7 +99,7 @@ yuiCompress: !!bool true
      * Update disabled stylesheets.
      */
     updateStylesheets = function() {
-        var links = $('link[rel$=stylesheet]');
+        var links = $('link[rel$=stylesheet][title^=theme-]');
         links.each(function() {
             this.disabled = true;
         });

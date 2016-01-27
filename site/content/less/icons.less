@@ -1,0 +1,20 @@
+.material-icons {
+    font-size: @icon-size;
+
+    &.md-18 {
+        font-size: 18px;
+        margin: ((@icon-size - 18px) / 2);
+    }
+
+    // special icons
+    &.landing {
+        margin-top: 0.5px;
+        margin-left: 0.5px; // micro typography...
+        transform: rotate(135deg);
+    }
+
+    &.takeoff {
+        margin-left: 1px; // micro typography...
+        transform: rotate(45deg);
+    }
+}
