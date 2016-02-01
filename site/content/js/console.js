@@ -368,10 +368,7 @@ yuiCompress: !!bool false
             return lsResult;
         },
         'theme': function(name) {
-            var themeNames = [];
-            $('link[rel$=stylesheet]').each(function() {
-                themeNames.push($(this).attr('title').match(/-(\w+)$/)[1]);
-            });
+            var themeNames = $('meta[name="denvelop-themes"]').attr('content').split(',');
             return helpers.filterPrefixed(name, themeNames);
         }
     },
