@@ -1,9 +1,23 @@
 a.blog-image {
     display: block;
+    font-size: 0; // to fight space between images
 
     & > img {
         max-width: 100%;
         vertical-align: bottom;
+    }
+
+    &.pack-4 {
+        margin-bottom: -@spacing-md;
+
+        & > img {
+            max-width: ~"calc(50% - " (@spacing-md / 2) ~")";
+            margin-bottom: @spacing-md;
+
+            &:nth-child(2n) {
+                margin-left: @spacing-md;
+            }
+        }
     }
 }
 

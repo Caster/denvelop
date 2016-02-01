@@ -18,7 +18,7 @@
     .bg-color(@white);
     .shadow();
 
-    h1, p, ul {
+    h1, p, ol, ul {
         margin: @spacing-md 0;
 
         &:first-child {
@@ -28,6 +28,10 @@
         &:last-child {
             margin-bottom: 0;
         }
+    }
+
+    ol, ul {
+        padding-left: @spacing-lg;
     }
 }
 
