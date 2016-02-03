@@ -18,6 +18,24 @@
     .bg-color(@white);
     .shadow();
 
+    &.notice {
+        .material-icons {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: @spacing-md;
+            font-size: 48px;
+            color: @color-accent;
+        }
+
+        .message {
+            display: inline-block;
+            vertical-align: middle;
+            // page width minus large icon and spacing
+            width: ~"calc(100% - 48px - " (@spacing-md) ~")";
+            font-size: 0.9rem;
+        }
+    }
+
     h1, p, ol, ul {
         margin: @spacing-md 0;
 
