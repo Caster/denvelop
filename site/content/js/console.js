@@ -91,7 +91,7 @@ yuiCompress: !!bool false
     onKeyDown = function(e) {
         // handle tab here, before it changes the focus
         // also respond to global toggle key events
-        if (e.which === 9 || e.which === cToggleKey) {
+        if ((cEnabled && e.which === 9) || e.which === cToggleKey) {
             onKeyUp(e);
         }
     },
@@ -102,7 +102,7 @@ yuiCompress: !!bool false
      */
     onKeyUp = function(e) {
         if (cEnabled && e.which === cToggleKey) {
-            return;
+            return
         }
         // see if we should handle this key press
         var handled = true,
@@ -133,7 +133,7 @@ yuiCompress: !!bool false
                     // update feedback after twice tab, but...
                     if (cLastKeyWasTab) {
                         setFeedback(matches);
-                    } else {
+                    } else if (matches.largestCommonStart) {
                         // ...update input immediately
                         // (but not when updating the feedback)
                         setInput((matches.prefix ? matches.prefix + ' ' : '') +
