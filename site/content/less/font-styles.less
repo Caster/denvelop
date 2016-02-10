@@ -42,3 +42,10 @@ h1 {
     font-size: 1.3rem;
     text-align: center;
 }
+
+// make fonts slightly smaller in Firefox
+@-moz-document url-prefix() {
+    h1 {
+        font-size: 2.3rem;
+    }
+}
