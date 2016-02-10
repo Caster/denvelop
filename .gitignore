@@ -7,3 +7,6 @@
 # Bundler config and installed gems
 /site/.bundle/
 /site/vendor/
+
+# Pictures on the blog
+/site/content/img/blog/
