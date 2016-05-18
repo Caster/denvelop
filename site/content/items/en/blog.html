@@ -1,7 +1,7 @@
 ---
 id: blog
 title: Blog
-updates: 10
+updates: 11
 ---
 <div class="floaty-columns">
     <div class="page">
@@ -77,7 +77,7 @@ might post some sort of wrap up at the end.</p>
             <div class="entry">
                 <span class="from-icon"><i class="material-icons takeoff">flight</i></span>
                 <span class="from">14-02-2016 11:25</span>
-                <span class="where">Melbourne (<a href="https://en.wikipedia.org/wiki/Melbourne_Airport">MEL</a>) &rarr; Tokyo (<a href="https://en.wikipedia.org/wiki/Narita_International_Airport">NRT</a>)</span>
+                <span class="where">Tokyo (<a href="https://en.wikipedia.org/wiki/Narita_International_Airport">NRT</a>) &rarr; Amsterdam (<a href="https://en.wikipedia.org/wiki/Amsterdam_Airport_Schiphol">AMS</a>)</span>
                 <span class="what">KLM flight 862.</span>
                 <span class="upto-icon"><i class="material-icons landing">flight</i></span>
                 <span class="upto">14-02-2016 15:10</span>
@@ -478,17 +478,18 @@ rice. We even had a <a
 href="https://en.wikipedia.org/wiki/Makgeolli"><i>Makgeolli</i></a>. Definitely
 not something I drink every day. I can recommend it.</p>
     </div>
-    <div class="page left notice">
-        <i class="material-icons">info</i><i class="message">There is one and a
-half day in Tokyo to be blogged about still! Please stay tuned.</i>
+    <div class="page left">
+        <h1><span class="pre-title">Update #11</span>Imado-jinja (?) &amp;
+miscellaneous</h1>
+        <p>After all the strange stuff we had already seen, it was time for something more normal. Just kidding of course. The ??? temple is a small shrine in the middle of a neighborhood. It is centered around <i>maneki neko</i> or beckoning cats. These are the famous Japanese little statues of cats with one paw in the air, sometimes waving at you. They are meant to bring luck and fortune into shops. </p>
     </div>
-    <div class="page">
+    <div class="page left">
         <%= blog_image 'cute-bus', :caption => 'Cutest. Bus. Ever!' %>
     </div>
-    <div class="page">
+    <div class="page right">
         <%= blog_image 'cute-bus-blue' %>
     </div>
-    <div class="page">
+    <div class="page left">
         <%= blog_image 'cute-bus-closeup' %>
     </div>
     <div class="page wide">
@@ -549,11 +550,14 @@ encounter an oasis of light, music and hipster happiness. Welcome to
 Melbourne.</p>
         <p>I have to say that I do <s>secretly</s> really enjoy it.</p>
     </div>
+    <div class="page right">
+        <%= blog_image 'melbourne-church-sign' %>
+    </div>
     <div class="page wide notice">
         <i class="material-icons">info</i><i class="message">This blog currently
 consists of <%= @item[:updates] %> updates. It was last updated on <%=
 @item[:mtime].to_date %>.<br>If you have any questions, remarks, or feedback,
-please do not hesitate to let me know!<br>You probably know how to contact me.
+ please do not hesitate to let me know!<br>You probably know how to contact me.
 If you do not, try the contact details on <a href="https://github.com/Caster">my
 GitHub profile</a>.</i>
     </div>
