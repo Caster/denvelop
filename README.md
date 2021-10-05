@@ -1,22 +1,22 @@
 # denvelop
-The source for my personal website, http://www.denvelop.nl/. Building it to
+The source for my personal website, https://www.denvelop.nl/. Building it to
 obtain a structure that can be deployed on any webserver is easy. Just do the
 following:
 
 ```
-  $ cd path/to/repo/site
+  $ cd path-to-repo/site
   $ bundle install
   $ bundle exec nanoc
 ```
 
-You will then find that [Nanoc](http://nanoc.ws/) creates a directory `output`
+You will then find that [Nanoc](https://nanoc.app/) creates a directory `output`
 that contains a folder structure with plain old `index.html` files in
 directories and some images and such.
 
 ## Dependencies
 You may have noticed that I use [Bundler](http://bundler.io/) for dependency
 management of gems needed for site compilation. This includes Nanoc, so you do
-not need to install that separately. You will need Ruby 2.2 or later since Nanoc
+not need to install that separately. You will need Ruby 2.5 or later since Nanoc
 depends on that. You can find [installation
 instructions](https://www.ruby-lang.org/en/documentation/installation/) on the
 Ruby website. Installing Bundler should be a matter of executing
