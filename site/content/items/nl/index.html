@@ -5,22 +5,14 @@ title: Home
 <div class="floaty-columns">
     <div class="page">
         <h1>Hallo!</h1>
-        <p>Welkom op Denvelop! Deze site is een speeltuin voor mij als ontwikkelaar. Het is een uithangbord van wat mogelijk is en wat ik leuk vind. Wil je <%= nav_link @items['/items/nl/over-mij.*'], 'meer van me weten' %>? Of <%= nav_link @items['/items/nl/over.*'], 'iets lezen over hoe deze site is gebouwd' %>? Rondkijken kan ook natuurlijk.</p>
+        <p>Welkom op Denvelop! Deze site is een speeltuin voor mij als ontwikkelaar. Het is een uithangbord van wat mogelijk is en wat ik leuk vind. Je kunt <%= nav_link @items['/items/nl/over.*'], 'iets lezen over hoe deze site is gebouwd' %>. Kijk gerust ook even rond!</p>
         <p>Oh ja. Er is nog een leuke verborgen feature op de site. Zoekt en gij zult vinden.</p>
     </div>
     <div class="page">
         <h1>Waar vind je me?</h1>
         <div class="external-account">
-            <%= logo 'TUe', 'https://www.tue.nl/en/university/departments/mathematics-and-computer-science/the-department/staff/detail/ep/e/d/ep-uid/20106752/', 'invertible' %>
-            <span class="description">Op mijn medewerkerspagina van de TU/e vind je gedetailleerde contactgegevens.</span>
-        </div>
-        <div class="external-account">
             <%= logo 'GitHub', 'https://github.com/Caster', 'invertible' %>
             <span class="description">Op GitHub staat de code achter deze site, plus een aantal hobbyprojecten van me.</span>
-        </div>
-        <div class="external-account">
-            <%= logo 'Twitter', 'https://twitter.com/ThomCastermans', 'invertible', 'twit' %>
-            <span class="description">Ik ben (bijna niet) actief op Twitter.</span>
         </div>
     </div>
     <div class="page">
