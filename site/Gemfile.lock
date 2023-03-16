@@ -63,7 +63,7 @@ GEM
       stringio
     public_suffix (5.0.1)
     racc (1.6.2)
-    rack (3.0.4.2)
+    rack (3.0.6.1)
     ref (2.0.0)
     slow_enumerator_tools (1.1.0)
     stringio (3.0.4)
