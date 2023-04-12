@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 gem 'nanoc', '~> 4'
 
 gem 'less', '~> 2.6'
-gem 'nokogiri', '~> 1.13'
+gem 'nokogiri', '~> 1.14'
 gem 'therubyracer', '~> 0.12'
 gem 'yuicompressor', '~> 1.3'
 
