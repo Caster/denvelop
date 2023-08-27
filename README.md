@@ -30,4 +30,6 @@ root rights can damage your installation.
 
 I have created figures using Ipe, the nanoc process will run the `iperender`
 tool, which you hence need to be able to compile the site. The same holds for
-the `tidy` tool, which is used to tidy up the HTML output.
+the `tidy` tool, which is used to tidy up the HTML output. Finally, you'll need
+to manually install the LESS CSS compiler (`lessc`), because I could no longer
+find an up-to-date Ruby Gem for it.
