@@ -177,7 +177,7 @@ yuiCompress: !!bool true
             var index = 0,
                 split = page.url.split('/'),
                 navItems = $('<div />').html(page.header).find('#nav > li');
-            index += navItems.size() *
+            index += navItems.length *
                 (split.length > 1 && split[1] === 'en' ? 0 : 1);
             index += navItems.index(navItems.filter(function(index) {
                 return ($('a, span', this).attr('data-url') === page.url);

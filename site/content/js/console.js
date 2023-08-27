@@ -482,7 +482,7 @@ yuiCompress: !!bool false
         // calculate the width of a non-breaking space
         spaceWidth = getTextWidth('&nbsp;');
 
-        if ($c.size() > 0) {
+        if ($c.length > 0) {
             var initialText = $fi.text(),
                 feedbackUp = $f.text();
             // enable toggling the console
